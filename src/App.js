@@ -3,6 +3,7 @@ import {createAppContainer, createStackNavigator} from 'react-navigation';
 import HomeScreen from "./components/HomeScreen"
 import AddGroupScreen from "./components/AddGroupScreen"
 import hbMenu from "./components/hbMenu";
+import newScreen from "./components/newScreen";
 
 
 const MainNavigator = createStackNavigator(
@@ -27,6 +28,13 @@ const MainNavigator = createStackNavigator(
                 header: null,
             }
         },
+
+        newScreen: {
+            screen: newScreen,
+            navigationOptions: {
+                header: null,
+            }
+        }
 
     },
     {

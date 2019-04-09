@@ -1,4 +1,4 @@
-let groups = {
+var groups = {
     1: {
         Title: 'Software Engineers',
         Paragraph: 'Recently eating at KFC!',
@@ -12,19 +12,25 @@ let groups = {
     }
 };
 
-let friends = {
-    1: {Name: 'Muhammad Haseeb'},
-    2: {Name: 'Muzammil Hussain'},
-    3: {Name: 'Abdul Manan'},
-    4: {Name: 'Abdul Rafae Noor'},
-    5: {Name: 'Salman Shoaib'},
-    6: {Name: 'Salman Shahid'},
-};
-export default groups;
+var friends = [
+    'Muhammad Haseeb',
+    'Muzammil Hussain',
+    'Abdul Manan',
+    'Abdul Rafae Noor',
+    'Salman Shoaib',
+    'Salman Shahid',
+];
 
 
-export const addGroup = (newGroup) => {
+const addGroup = (newGroup) => {
     const k = (Object.keys(groups)).length + 1;
     groups[k] = newGroup;
-    groups = {...groups};
+    //groups = {...groups};
+    console.log('Added', groups)
+};
+
+export {
+    groups,
+    friends,
+    addGroup,
 };

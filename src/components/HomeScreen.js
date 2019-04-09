@@ -4,6 +4,16 @@ import GroupCard from "./GroupCard";
 import {StyleSheet, View,} from 'react-native';
 
 export default class HomeScreen extends React.Component {
+    state = {};
+
+    componentDidMount() {
+        this.props.navigation.addListener(
+            'didFocus',
+            () => {
+                this.forceUpdate();
+            }
+        );
+    }
     render() {
         return (
             <View style={styles.main}>
