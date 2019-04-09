@@ -7,7 +7,7 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.main}>
-                <AppBar navigation={this.props.navigation}/>
+                <AppBar navigation={this.props.navigation} title='Home' subtitle='Your Groups'/>
                 <GroupCard navigation={this.props.navigation}/>
             </View>
         );

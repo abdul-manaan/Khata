@@ -6,9 +6,9 @@ export default class DrawerMenu extends React.Component {
     render() {
         return (
             <Drawer.Section>
-                <Drawer.Item label="one"/>
-                <Drawer.Item label="two"/>
-                <Drawer.Item label="three"/>
+                <Drawer.Item label="Fuck You"/>
+                <Drawer.Item label="Fuck your Mother"/>
+                <Drawer.Item label="Fuck your grand mother"/>
             </Drawer.Section>
         );
     }
