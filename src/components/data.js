@@ -12,7 +12,7 @@ var groups = {
     }
 };
 
-var friends = [
+let friends = [
     'Muhammad Haseeb',
     'Muzammil Hussain',
     'Abdul Manan',
@@ -29,8 +29,19 @@ const addGroup = (newGroup) => {
     console.log('Added', groups)
 };
 
+let qrInfo = {
+    info: 'who Sucks'
+};
+
+
+const updateQR = (update) => {
+    qrInfo['info'] = update;
+};
+
 export {
     groups,
     friends,
     addGroup,
+    qrInfo,
+    updateQR,
 };

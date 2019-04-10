@@ -1,9 +1,9 @@
 import React from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
-import HomeScreen from "./components/HomeScreen"
-import AddGroupScreen from "./components/AddGroupScreen"
+import HomeScreen from "./components/HomeScreen";
+import AddGroupScreen from "./components/AddGroupScreen";
 import hbMenu from "./components/hbMenu";
-
+import QRScreen from "./components/QRScreen";
 
 const MainNavigator = createStackNavigator(
     {
@@ -23,6 +23,13 @@ const MainNavigator = createStackNavigator(
 
         hbMenu: {
             screen: hbMenu,
+            navigationOptions: {
+                header: null,
+            }
+        },
+
+        QR: {
+            screen: QRScreen,
             navigationOptions: {
                 header: null,
             }

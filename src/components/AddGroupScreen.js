@@ -1,8 +1,8 @@
 import React from 'react';
 import AppBar from "./AppBar";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Card, Checkbox, Title} from 'react-native-paper';
-import {addGroup, friends} from './data'
+import {Card, Checkbox, Paragraph, Title} from 'react-native-paper';
+import {addGroup, friends, updateQR} from './data'
 
 export default class AddGroupScreen extends React.Component {
 
@@ -52,6 +52,17 @@ export default class AddGroupScreen extends React.Component {
                     </Card.Content>
                 </Card>
 
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('QR')}>
+                    <Card style={styles.qrButton}>
+                        <Card.Content>
+                            <Title style={{textAlign: 'center', color: 'white',}}> Generate QR </Title>
+                            {updateQR('Kasuri Sucks')}
+                            <Paragraph style={{textAlign: 'center', color: 'white',}}> Add friends by QR
+                                code </Paragraph>
+                        </Card.Content>
+                    </Card>
+                </TouchableOpacity>
+
 
                 <TouchableOpacity onPress={() => this.makeGroup()}>
                     <Card style={styles.confirmButton}>
@@ -85,6 +96,13 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginBottom: 20,
         height: 60,
+    },
+    qrButton: {
+        backgroundColor: 'green',
+        marginLeft: 8,
+        marginRight: 8,
+        marginTop: 20,
+        height: 100,
     },
     cardStyle: {
         backgroundColor: 'white',
