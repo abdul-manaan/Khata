@@ -8,13 +8,12 @@ export default class QR_Code extends Component {
         this.state = {
             content: props.content,
             display: props.display || '',
-            fg: 'antiquewhite',
         }
     }
 
     render() {
         return (
-            <QRCode value={this.state.content} size={250} fgColor={this.state.fg}/>
+            <QRCode value={this.state.content} size={250}/>
         );
     }
 }
