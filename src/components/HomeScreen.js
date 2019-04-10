@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from "./AppBar";
 import GroupCard from "./GroupCard";
-import {StyleSheet, View,} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 
 export default class HomeScreen extends React.Component {
     state = {};
@@ -18,7 +18,9 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.main}>
                 <AppBar navigation={this.props.navigation} title='Home' subtitle='Your Groups'/>
-                <GroupCard navigation={this.props.navigation}/>
+                <ScrollView>
+                    <GroupCard navigation={this.props.navigation}/>
+                </ScrollView>
             </View>
         );
     }

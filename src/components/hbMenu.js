@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
-
+import {Icon} from 'react-native-elements'
 import {profileName} from './data';
 
 
@@ -29,15 +29,23 @@ export default class HbMenu extends React.Component {
                     </View>
                     <View style={styles.bottomLinks}>
                         <View style={styles.sideLink}>
+                            <Icon name='home' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('Home', 'Home')}
                         </View>
                         <View style={styles.sideLink}>
+                            <Icon name='person' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('Profile', 'Profile')}
                         </View>
                         <View style={styles.sideLink}>
+                            <Icon name='add-a-photo' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('ScanQR', 'Scan QR Code')}
                         </View>
                         <View style={styles.sideLink}>
+                            <Icon name='ac-unit' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('QR', 'Generate QR Code')}
                         </View>
                     </View>
@@ -101,7 +109,8 @@ const styles = StyleSheet.create({
     },
     link: {
         flex: 1,
-        fontSize: 20,
+        fontSize: 16,
+        fontWeight: 'bold',
         padding: 6,
         paddingLeft: 14,
         margin: 5,
