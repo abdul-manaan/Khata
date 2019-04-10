@@ -1,11 +1,26 @@
 import React from 'react';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
+import {createAppContainer, createDrawerNavigator} from 'react-navigation';
 import HomeScreen from "./components/HomeScreen";
 import AddGroupScreen from "./components/AddGroupScreen";
-import hbMenu from "./components/hbMenu";
+import HbMenu from "./components/hbMenu";
 import QRScreen from "./components/QRScreen";
+import {Dimensions} from 'react-native';
 
-const MainNavigator = createStackNavigator(
+
+const WIDTH = Dimensions.get('window').width;
+
+
+const DrawerConfig = {
+    initialRouteName: 'Home',
+    headerMode: 'screen',
+    drawerWidth: WIDTH * 0.75,
+    contentComponent: ({navigation}) => {
+        return (<HbMenu navigation={navigation}/>)
+    }
+};
+
+
+const MainNavigator = createDrawerNavigator(
     {
         Home: {
             screen: HomeScreen,
@@ -21,13 +36,6 @@ const MainNavigator = createStackNavigator(
             }
         },
 
-        hbMenu: {
-            screen: hbMenu,
-            navigationOptions: {
-                header: null,
-            }
-        },
-
         QR: {
             screen: QRScreen,
             navigationOptions: {
@@ -37,10 +45,7 @@ const MainNavigator = createStackNavigator(
 
 
     },
-    {
-        initialRouteName: 'Home',
-        headerMode: 'screen'
-    });
+    DrawerConfig);
 
 const App = createAppContainer(MainNavigator);
 

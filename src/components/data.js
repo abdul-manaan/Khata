@@ -34,6 +34,8 @@ let qrInfo = {
 };
 
 
+let profileName = 'Suleman Shahid';
+
 const updateQR = (update) => {
     qrInfo['info'] = update;
 };
@@ -44,4 +46,5 @@ export {
     addGroup,
     qrInfo,
     updateQR,
+    profileName,
 };

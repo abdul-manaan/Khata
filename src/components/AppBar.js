@@ -7,7 +7,7 @@ export default class AppBar extends React.Component {
     render() {
         return (
             <Appbar.Header style={styles.bar}>
-                <Appbar.Action icon="menu" onPress={() => this.props.navigation.navigate('hbMenu')}/>
+                <Appbar.Action icon="menu" onPress={() => this.props.navigation.toggleDrawer()}/>
                 <Appbar.Content
                     title={this.props.title}
                     subtitle={this.props.subtitle}
