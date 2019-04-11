@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from "./AppBar";
 import GroupCard from "./GroupCard";
-import {BackHandler, ScrollView, StyleSheet, View,} from 'react-native';
+import {ScrollView, StyleSheet, View,} from 'react-native';
 
 export default class HomeScreen extends React.Component {
     state = {};
@@ -13,13 +13,13 @@ export default class HomeScreen extends React.Component {
                 this.forceUpdate();
             }
         );
-        BackHandler.addEventListener('hardwareBackPress', () => BackHandler.exitApp());
+        // BackHandler.addEventListener('hardwareBackPress', () => BackHandler.exitApp());
     }
 
 
-    componentWillUnMount() {
-        BackHandler.removeEventListener('hardwareBackPress', () => BackHandler.exitApp());
-    }
+    // componentWillUnMount() {
+    //     BackHandler.removeEventListener('hardwareBackPress', () => BackHandler.exitApp());
+    // }
 
     render() {
         return (
