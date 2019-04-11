@@ -30,7 +30,7 @@ const addGroup = (newGroup) => {
 };
 
 let qrInfo = {
-    info: 'who Sucks'
+    info: 'Haseeb Sucks'
 };
 
 
@@ -41,7 +41,7 @@ const updateQR = (update) => {
 };
 
 
-let login_details = {admin: 'admin'};
+let login_details = {Admin: 'Admin'};
 
 const signin = (email, pass) => {
     if (login_details[email] === pass) {

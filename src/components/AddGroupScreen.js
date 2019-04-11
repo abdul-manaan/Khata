@@ -24,7 +24,7 @@ export default class AddGroupScreen extends React.Component {
 
         let newGroup = {Title: 'Engineers', Paragraph: 'Recently eating at anonymous hotel', Members: members};
         addGroup(newGroup);
-        this.props.navigation.goBack()
+        this.props.navigation.navigate('Home')
     };
     render() {
         if (Object.keys(this.state).length < 1) {
@@ -56,7 +56,7 @@ export default class AddGroupScreen extends React.Component {
                     <Card style={styles.qrButton}>
                         <Card.Content>
                             <Title style={{textAlign: 'center', color: 'white',}}> Generate QR </Title>
-                            {updateQR('Kasuri Sucks')}
+                            {updateQR('Haseeb Sucks')}
                             <Paragraph style={{textAlign: 'center', color: 'white',}}> Add friends by QR
                                 code </Paragraph>
                         </Card.Content>

@@ -116,7 +116,9 @@ const styles = StyleSheet.create({
     textinformation: {
         flexDirection: 'row',
         justifyContent: 'center',
-        position: 'absolute',
+        // marginTop: 220,
+
+        // position: 'absolute',
         bottom: 10,
     },
     loginButton: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {createAppContainer, createDrawerNavigator} from 'react-navigation';
+import {createAppContainer, createDrawerNavigator, createStackNavigator} from 'react-navigation';
 import HomeScreen from "./components/HomeScreen";
 import AddGroupScreen from "./components/AddGroupScreen";
 import HbMenu from "./components/hbMenu";
@@ -12,7 +12,7 @@ const WIDTH = Dimensions.get('window').width;
 
 
 const DrawerConfig = {
-    initialRouteName: 'SignIn',
+    initialRouteName: 'MainStack',
     headerMode: 'screen',
     drawerWidth: WIDTH * 0.75,
     contentComponent: ({navigation}) => {
@@ -20,45 +20,61 @@ const DrawerConfig = {
     }
 };
 
-
-const MainNavigator = createDrawerNavigator(
-    {
-        SignIn: {
-            screen: SignInScreen,
-            navigationOptions: {
-                header: null,
-            }
-        },
-        SignUp: {
-            screen: SignUpScreen,
-            navigationOptions: {
-                header: null,
-            }
-        },
-        Home: {
-            screen: HomeScreen,
-            navigationOptions: {
-                header: null,
-            }
-        },
-
-        AddGroup: {
-            screen: AddGroupScreen,
-            navigationOptions: {
-                header: null,
-            }
-        },
-
-        QR: {
-            screen: QRScreen,
-            navigationOptions: {
-                header: null,
-            }
-        },
-
-
+export const MainStack = createStackNavigator({
+    Home: {
+        screen: HomeScreen,
+        navigationOptions: {
+            header: null,
+        }
     },
-    DrawerConfig);
+
+    AddGroup: {
+        screen: AddGroupScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
+    QR: {
+        screen: QRScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
+}, {headerMode: 'screen'});
+
+
+export const Drawer = createDrawerNavigator({
+    MainStack: {
+        screen: MainStack
+    }
+}, DrawerConfig);
+
+
+export const MainNavigator = createStackNavigator({
+    SignIn: {
+        screen: SignInScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    SignUp: {
+        screen: SignUpScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
+    Drawer: {
+        screen: Drawer,
+        navigationOptions: {
+            header: null,
+            gesturesEnabled: false
+        }
+    }
+}, {headerMode: 'none'});
+
 
 const App = createAppContainer(MainNavigator);
 
