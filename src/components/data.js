@@ -40,6 +40,17 @@ const updateQR = (update) => {
     qrInfo['info'] = update;
 };
 
+
+let login_details = {admin: 'admin'};
+
+const signin = (email, pass) => {
+    if (login_details[email] === pass) {
+        return 0;
+    } else {
+        return 1;
+    }
+};
+
 export {
     groups,
     friends,
@@ -47,4 +58,5 @@ export {
     qrInfo,
     updateQR,
     profileName,
+    signin,
 };

@@ -5,13 +5,14 @@ import AddGroupScreen from "./components/AddGroupScreen";
 import HbMenu from "./components/hbMenu";
 import QRScreen from "./components/QRScreen";
 import {Dimensions} from 'react-native';
-
+import SignInScreen from './components/SignInScreen';
+import SignUpScreen from './components/SignUpScreen';
 
 const WIDTH = Dimensions.get('window').width;
 
 
 const DrawerConfig = {
-    initialRouteName: 'Home',
+    initialRouteName: 'SignIn',
     headerMode: 'screen',
     drawerWidth: WIDTH * 0.75,
     contentComponent: ({navigation}) => {
@@ -22,6 +23,18 @@ const DrawerConfig = {
 
 const MainNavigator = createDrawerNavigator(
     {
+        SignIn: {
+            screen: SignInScreen,
+            navigationOptions: {
+                header: null,
+            }
+        },
+        SignUp: {
+            screen: SignUpScreen,
+            navigationOptions: {
+                header: null,
+            }
+        },
         Home: {
             screen: HomeScreen,
             navigationOptions: {
