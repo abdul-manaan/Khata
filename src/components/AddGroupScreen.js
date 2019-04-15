@@ -2,7 +2,8 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card, Checkbox, Paragraph, Title} from 'react-native-paper';
-import {addGroup, friends, updateQR} from './data'
+import {addGroup, create_group, friends, updateQR} from './data'
+
 
 export default class AddGroupScreen extends React.Component {
 
@@ -24,6 +25,8 @@ export default class AddGroupScreen extends React.Component {
 
         let newGroup = {Title: 'Engineers', Paragraph: 'Recently eating at anonymous hotel', Members: members};
         addGroup(newGroup);
+        let newG = {name: 'New Engineer', members: members};
+        create_group(newG);
         this.props.navigation.navigate('Home')
     };
     render() {

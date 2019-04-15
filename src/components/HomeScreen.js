@@ -13,13 +13,9 @@ export default class HomeScreen extends React.Component {
                 this.forceUpdate();
             }
         );
-        // BackHandler.addEventListener('hardwareBackPress', () => BackHandler.exitApp());
     }
 
 
-    // componentWillUnMount() {
-    //     BackHandler.removeEventListener('hardwareBackPress', () => BackHandler.exitApp());
-    // }
 
     render() {
         return (

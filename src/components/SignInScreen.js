@@ -7,18 +7,17 @@ export default class SignInScreen extends Component {
     constructor(props) {
         super();
         this.state = {
-            email: '',
+            phone: '',
             password: '',
         }
     }
 
-    onClickListener = () => {
-        if (!signin(this.state.email, this.state.password)) {
+    onClickListener = async () => {
+        if (!await signin(this.state.phone, this.state.password)) {
             this.props.navigation.navigate('Home');
-
             return 0;
         } else {
-            Alert.alert("Email or password incorrect");
+            Alert.alert("Phone or password incorrect");
             return 1;
         }
     };
@@ -37,10 +36,10 @@ export default class SignInScreen extends Component {
                     <Image style={styles.inputIcon}
                            source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
                     <TextInput style={styles.inputs}
-                               placeholder="Email"
+                               placeholder="Phone Number"
                                keyboardType="email-address"
                                underlineColorAndroid='transparent'
-                               onChangeText={(email) => this.setState({email})}/>
+                               onChangeText={(phone) => this.setState({phone})}/>
                 </View>
 
                 <View style={styles.inputContainer}>

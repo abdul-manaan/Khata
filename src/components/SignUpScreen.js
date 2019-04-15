@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {create_user,} from './data'
 
 export default class SignUpScreen extends Component {
 
     state = {
         email: '',
         password: '',
+        phone: '',
+        name: '',
     };
 
     onClickListener = (viewId) => {
@@ -27,7 +30,7 @@ export default class SignUpScreen extends Component {
                                placeholder="Full Name"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
-                               onChangeText={(email) => this.setState({email})}/>
+                               onChangeText={(name) => this.setState({name})}/>
                 </View>
 
 
@@ -36,7 +39,7 @@ export default class SignUpScreen extends Component {
                                placeholder="Phone No."
                                keyboardType="phone-pad"
                                underlineColorAndroid='transparent'
-                               onChangeText={(email) => this.setState({email})}/>
+                               onChangeText={(phone) => this.setState({phone})}/>
                 </View>
 
 
@@ -58,7 +61,10 @@ export default class SignUpScreen extends Component {
                 </View>
 
                 <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]}
-                                    onPress={() => this.onClickListener('login')}>
+                                    onPress={() => {
+                                        create_user(this.state);
+                                        this.props.navigation.navigate('SignIn')
+                                    }}>
                     <Text style={styles.loginText}>Enter</Text>
                 </TouchableHighlight>
 
