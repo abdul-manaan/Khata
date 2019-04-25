@@ -1,8 +1,7 @@
 import React from 'react';
 import AppBar from "./AppBar";
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Card, Checkbox, Paragraph, Title,TextInput} from 'react-native-paper';
-
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Card, TextInput, Title} from 'react-native-paper';
 
 export default class GroupName extends React.Component {
 
@@ -10,14 +9,13 @@ export default class GroupName extends React.Component {
 
 
 
-   
-    render() {
 
+    render() {
         return (
             <View style={styles.main}>
-                <AppBar 
-                  navigation={this.props.navigation} 
-                  title='Group Name' 
+                <AppBar
+                    navigation={this.props.navigation}
+                    title='Group Name'
                   subtitle='Enter group name'/>
 
                         <TextInput style={styles.textBox}
@@ -25,7 +23,7 @@ export default class GroupName extends React.Component {
                           onChangeText={(text) => this.setState({text})}
                         />
 
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddGroup')}>
                     <Card style={styles.confirmButton}>
                         <Card.Content>
                             <Title style={{textAlign: 'center', color: 'white',}}> Confirm </Title>
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginBottom: 20,
         height: 60,
-        position:'absolute',
+        position: 'relative',
     },
     cardStyle: {
         backgroundColor: 'white',
@@ -70,5 +68,5 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginTop: 40,
     }
-   
+
 });

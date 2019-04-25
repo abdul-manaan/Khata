@@ -7,6 +7,7 @@ import QRScreen from "./components/QRScreen";
 import {Dimensions} from 'react-native';
 import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
+import GroupName from './components/GroupName'
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -37,6 +38,12 @@ export const MainStack = createStackNavigator({
 
     QR: {
         screen: QRScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    GroupName: {
+        screen: GroupName,
         navigationOptions: {
             header: null,
         }
