@@ -1,11 +1,10 @@
 const firebase_conn = require('./firebase_conn');
 
 
-function create_user(info) {
+async function create_user(info) {
     if (info === undefined)
         return;
 
-    let unique_id = firebase_conn.db.ref().child('users').push().key;
     let userProfile = {
         name: info['name'] || "",
         phone: info['phone'] || "",
@@ -22,8 +21,33 @@ function create_user(info) {
         "payables": [],
         "recievables": []
     };
+    let unique_id = userProfile['email'].hashCode();
+
+    let snapshot = await  firebase_conn.db.ref('users/'+unique_id).once('value');
+
+    if(snapshot.val() != null) { // User already exists no need to create account
+        console.log("User already exists, not making an account");
+        return;
+    }
+
     firebase_conn.db.ref('users/' + unique_id).set(userData);
+    firebase_conn.auth.createUserWithEmailAndPassword(userProfile['email'],userProfile['password']);
 }
+
+
+String.prototype.hashCode = function() {
+    var hash = 0, i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr   = this.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash =  hash % 47055833459; // Convert to 32bit integer
+        if(hash < 0){
+            hash = hash * -1
+        }
+    }
+    return hash;
+};
 
 function add_friend(userID, friendID) {
     return firebase_conn.db.ref(`users/${userID}/friends_list`).once('value').then(snapshot => {
@@ -103,6 +127,27 @@ function edit_info(userID, deltas) { // deltas would only contain key/values we 
     })
 }
 
+async function get_user(userID){
+    let snapshot= await firebase_conn.db.ref('users/'+userID).once('value');
+    let result = snapshot.val()
+    if(result === null) {
+        console.log('User Doesnt exist');
+        return null;
+    } else {
+        console.log(`Fetched ${JSON.stringify(result)}`);
+        return result;
+    }
+}
+
+
+async function is_valid_user(email,password){
+    isValid = true;
+    await firebase_conn.auth.signInWithEmailAndPassword(email,password).catch((err) => {
+        isValid = false;
+    });
+    return isValid;
+
+}
 
 module.exports = {
     create_user: create_user,
@@ -111,4 +156,6 @@ module.exports = {
     add_transaction: add_transaction,
     get_transactions: get_transactions,
     edit_info: edit_info,
+    get_user: get_user,
+    is_valid_user: is_valid_user,
 };

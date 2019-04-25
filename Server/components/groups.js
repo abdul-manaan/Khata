@@ -37,8 +37,8 @@ function add_group_transactions(groupID,info){
     return firebase_conn.db.ref(`groups/${groupID}/transactions/${unique_id}`).set(groupTransactionData);
 }
 
-function get_group_transactions(groupID) {
-    return firebase_conn.db.ref(`groups/${groupID}/transactions`).once('value').then(snapshot => {
+async function get_group_transactions(groupID) {
+    let snapshot = await firebase_conn.db.ref(`groups/${groupID}/transactions`).once('value');
         if (snapshot.val() === null) {
             console.log(`No transactions for group ${groupID}`)
         } else {
@@ -46,7 +46,7 @@ function get_group_transactions(groupID) {
             console.log(transactionList);
             return transactionList;
         }
-    })
+
 }
 
 async function get_group(groupID){
