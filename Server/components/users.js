@@ -1,6 +1,7 @@
 const firebase_conn = require('./firebase_conn');
 
 
+
 async function create_user(info) {
     if (info === undefined)
         return;
@@ -10,7 +11,8 @@ async function create_user(info) {
         phone: info['phone'] || "",
         email: info['email'] || "",
         password: info['password'] || "",
-        picture: "",
+        picture: "sample.png",
+        notification: ["ABC"],
     };
 
     let userData = {
@@ -31,6 +33,15 @@ async function create_user(info) {
     }
 
     firebase_conn.db.ref('users/' + unique_id).set(userData);
+    firebase_conn.db.ref('users/'+unique_id+'/profile/notification').on('value', snap => {
+        console.log(`user${unique_id} notifications changed! :${snap.val()}`);
+    });
+    //console.log(imageRef);
+
+
+
+
+
     firebase_conn.auth.createUserWithEmailAndPassword(userProfile['email'],userProfile['password']);
 }
 
@@ -129,7 +140,7 @@ function edit_info(userID, deltas) { // deltas would only contain key/values we 
 
 async function get_user(userID){
     let snapshot= await firebase_conn.db.ref('users/'+userID).once('value');
-    let result = snapshot.val()
+    let result = snapshot.val();
     if(result === null) {
         console.log('User Doesnt exist');
         return null;
@@ -141,12 +152,25 @@ async function get_user(userID){
 
 
 async function is_valid_user(email,password){
-    isValid = true;
+    let isValid = true;
     await firebase_conn.auth.signInWithEmailAndPassword(email,password).catch((err) => {
         isValid = false;
     });
     return isValid;
+}
 
+async function add_user_to_group(userID,groupID){
+    snap = await firebase_conn.db.ref(`users/`+userID+'/groups').once('value');
+    if(snap.val()===null){
+        firebase_conn.db.ref('users/'+userID+'/groups').set([groupID]);
+    } else {
+        let groupList = snap.val();
+        firebase_conn.db.ref('users/'+userID+'/groups').set(groupList.push(userID));
+    }
+}
+
+function addString(str){
+    firebase_conn.stor.ref().child("images/").putString(str);
 }
 
 module.exports = {
@@ -158,4 +182,6 @@ module.exports = {
     edit_info: edit_info,
     get_user: get_user,
     is_valid_user: is_valid_user,
+    addString: addString,
+    add_user_to_group: add_user_to_group,
 };
