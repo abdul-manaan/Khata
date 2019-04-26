@@ -8,6 +8,8 @@ import {Dimensions} from 'react-native';
 import SignInScreen from './components/SignInScreen';
 import SignUpScreen from './components/SignUpScreen';
 import GroupName from './components/GroupName'
+import newTransactionScreen from './components/newTransacrionScreen'
+import AddTransactionsScreen from './components/AddTransactionsScreen'
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -48,7 +50,18 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
-
+    Transaction: {
+        screen: newTransactionScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    AddTransaction: {
+        screen: AddTransactionsScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
 }, {headerMode: 'screen'});
 
 
