@@ -2,6 +2,7 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
+import {update_rgn} from "./data";
 
 export default class newTransacrionScreen extends React.Component {
 
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         marginRight: 8,
     },
-    textBox: {
+    textBox:{
         marginLeft: 8,
         marginRight: 8,
         marginTop: 40,
