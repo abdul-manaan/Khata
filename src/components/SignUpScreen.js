@@ -62,8 +62,12 @@ export default class SignUpScreen extends Component {
 
                 <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]}
                                     onPress={() => {
-                                        create_user(this.state);
-                                        this.props.navigation.navigate('SignIn')
+                                        if (this.state.password.length < 6) {
+                                            alert('Gaand na mra');
+                                        } else {
+                                            create_user(this.state);
+                                            this.props.navigation.navigate('SignIn')
+                                        }
                                     }}>
                     <Text style={styles.loginText}>Enter</Text>
                 </TouchableHighlight>

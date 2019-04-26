@@ -42,27 +42,46 @@ const updateQR = (update) => {
 
 
 let login_details = {Admin: 'Admin'};
-let CurrentUser = {};
 
-const signin = async (phone, pass) => {
-    let res = await get_user(phone);
-    console.log(res);
-    if (res) {
-        if (res['profile']['password'] === pass) {
-            return 0;
-        } else {
-            return 1;
+
+String.prototype.hashCode = function () {
+    var hash = 0, i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash = hash % 47055833459; // Convert to 32bit integer
+        if (hash < 0) {
+            hash = hash * -1
         }
     }
+    return hash;
+};
+
+let CurrentUser = {};
+const signin = async (email, pass) => {
+    let verify = await is_valid_user(email, pass);
+    if (!verify) {
+        return 1;
+    }
+    CurrentUser = await get_user(email.hashCode());
     return 0;
 
 };
+
+async function is_valid_user(email, password) {
+    let isValid = true;
+    await auth.signInWithEmailAndPassword(email, password).catch((err) => {
+        isValid = false;
+    });
+    return isValid;
+
+}
 
 async function get_user(userID) {
     let snapshot = await db.ref('users/' + userID).once('value');
     let result = snapshot.val();
     console.log(result);
-
     if (result === null) {
         console.log('User doesnt exist');
         return null;
@@ -74,7 +93,7 @@ async function get_user(userID) {
 //NEW
 
 //const firebase_conn = require('../config');
-import {db,} from '../config';
+import {auth, db} from '../config';
 
 //const transactions = require('./transactions');
 
@@ -93,11 +112,10 @@ function create_group(info) {
 }
 
 
-function create_user(info) {
+async function create_user(info) {
     if (info === undefined)
         return;
 
-    //let unique_id = db.ref().child('users').push().key;
     let userProfile = {
         name: info['name'] || "",
         phone: info['phone'] || "",
@@ -114,10 +132,18 @@ function create_user(info) {
         "payables": [],
         "recievables": []
     };
+    let unique_id = userProfile['email'].hashCode();
 
-    db.ref('users/' + info['phone'] + '/').set(userData);
+    let snapshot = await db.ref('users/' + unique_id).once('value');
+
+    if (snapshot.val() != null) { // User already exists no need to create account
+        console.log("User already exists, not making an account");
+        return;
+    }
+
+    db.ref('users/' + unique_id).set(userData);
+    auth.createUserWithEmailAndPassword(userProfile['email'], userProfile['password']);
 }
-
 
 //
 // function add_group_transactions(groupID,info){
@@ -173,8 +199,14 @@ function create_user(info) {
 //     get_group: get_group
 // };
 
+let recent_group_name = '';
+let update_rgn = (n) => {
+    recent_group_name = n;
+};
 
 export {
+    recent_group_name,
+    update_rgn,
     groups,
     friends,
     addGroup,

@@ -2,13 +2,17 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
+import {update_rgn} from "./data";
 
 export default class GroupName extends React.Component {
 
     state = {};
 
 
-
+    handleInput = (inp) => {
+        //this.setState({[inp]});
+        update_rgn(inp);
+    };
 
     render() {
         return (
@@ -19,8 +23,8 @@ export default class GroupName extends React.Component {
                   subtitle='Enter group name'/>
 
                         <TextInput style={styles.textBox}
-                          placeholder="Enter your Group Name"
-                          onChangeText={(text) => this.setState({text})}
+                                   placeholder="Enter your Group Name"
+                                   onChangeText={(text) => this.handleInput(text)}
                         />
 
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('AddGroup')}>
