@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card, Checkbox, Title} from 'react-native-paper';
-import {addGroup, create_group, friends, recent_group_name, updateQR} from './data'
+import {addGroup, create_group, encryptEmail, friends, get_Current_user, recent_group_name, updateQR} from './data'
 
 
 export default class AddGroupScreen extends React.Component {
@@ -14,9 +14,14 @@ export default class AddGroupScreen extends React.Component {
         console.log('Pressed\n\n');
     };
 
-    makeGroup = () => {
+    makeGroup = async () => {
+
         let tmp = Object.keys(this.state);
-        let members = [];
+
+        let temp_email = await get_Current_user();
+        temp_email = temp_email['profile']['email'];
+        let members = [encryptEmail(temp_email)];
+        console.log('Previous Member', members);
         for (let i = 0; i < tmp.length; i++) {
             if (this.state[tmp[i]]) {
                 members.push(tmp[i])
