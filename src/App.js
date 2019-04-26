@@ -11,6 +11,7 @@ import GroupName from './components/GroupName'
 import newTransactionScreen from './components/newTransacrionScreen'
 import AddTransactionsScreen from './components/AddTransactionsScreen'
 import GroupInfoScreen from './components/GroupInfoScreen'
+import ProfileScreen from './components/ProfileScreen'
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -65,6 +66,12 @@ export const MainStack = createStackNavigator({
     },
     GroupInfo: {
         screen: GroupInfoScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    Profile: {
+        screen: ProfileScreen,
         navigationOptions: {
             header: null,
         }
