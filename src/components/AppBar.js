@@ -14,6 +14,7 @@ export default class AppBar extends React.Component {
                 />
                 {this.props.title !== 'Home' ||
                 <Appbar.Action icon="add" onPress={() => this.props.navigation.navigate('GroupName')}/>}
+
             </Appbar.Header>
         );
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Avatar, Card, Paragraph, Title} from 'react-native-paper';
 import {get_Current_user, get_group,} from './data';
+import {updateGTS} from './groupscreensflow'
 //import {Icon} from "react-native-paper/typings/components/Avatar";
 
 //const groups = [{key: 1, Title: 'Software Engineers', Paragraph: 'Recently eating at KFC!'}, {key: 2, Title: 'Hardware Engineers', Paragraph: 'Recently eating at PDC!'}, {key: 3, Title: 'Electrical Engineers', Paragraph: 'Recently eating at their own home!'}]
@@ -14,7 +15,7 @@ export default class GroupCard extends React.Component {
         super(props);
         this.state = {groups: []};
         this.fetchGroup();
-        console.log('Doing??');
+        // console.log('Doing??');
     }
 
     fetchGroup = async () => {
@@ -23,15 +24,20 @@ export default class GroupCard extends React.Component {
         let groups = user['groups'];
 
         await Promise.all(groups.map(async g => local_groups_store.push(await get_group(g))));
-        console.log(`temp_store: ${local_groups_store}`);
+        // console.log(`temp_store: ${local_groups_store}`);
         this.setState({groups: local_groups_store})
+    };
+
+    _handle_press = (g) => {
+        updateGTS(g);
+        this.props.navigation.navigate('GroupInfo')
     };
 
     render() {
         this.fetchGroup();
         if (this.state.groups.length > 0) {
             return this.state.groups.map(g =>
-                <Card onPress={() => console.log('Card Pressed')} style={styles.cardStyle}>
+                <Card onPress={() => this._handle_press(g)} style={styles.cardStyle}>
                     <Card.Content>
                         <Title> {g['name']}</Title>
                         <View style={{flexDirection: 'row'}}>

@@ -48,6 +48,11 @@ export default class HbMenu extends React.Component {
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('QR', 'Generate QR Code')}
                         </View>
+                        <View style={styles.sideLink}>
+                            <Icon name='ac-unit' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
+                            {this.navLink('Transaction', 'Create a Transaction')}
+                        </View>
                     </View>
                 </ScrollView>
                 <View style={styles.footer}>

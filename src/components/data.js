@@ -115,9 +115,9 @@ async function is_valid_user(email, password) {
 async function get_user(userID) {
     let snapshot = await db.ref('users/' + userID).once('value');
     let result = snapshot.val();
-    console.log(result);
+    // console.log(result);
     if (result === null) {
-        console.log('User doesnt exist');
+        // console.log('User doesnt exist');
         return null;
     } else {
         return result;
@@ -155,7 +155,7 @@ async function add_user_to_group(userID, groupID) {
         db.ref('users/' + userID + '/groups').set([groupID]);
     } else {
         let groupList = snap.val();
-        console.log(groupList);
+        // console.log(groupList);
         groupList.push(groupID);
         db.ref('users/' + userID + '/groups').set(groupList);
     }
@@ -189,7 +189,7 @@ async function create_user(info) {
     //strRef.putString("abc");
 
     if (snapshot.val() != null) { // User already exists no need to create account
-        console.log("User already exists, not making an account");
+        // console.log("User already exists, not making an account");
         return;
     }
 
@@ -237,10 +237,10 @@ async function get_group(groupID) {
     let snapshot = await db.ref(`groups/${groupID}`).once('value');
 
     if (snapshot.val() === null) {
-        console.log(`GroupID: ${groupID} does not exist...`);
+        // console.log(`GroupID: ${groupID} does not exist...`);
         return null;
     } else {
-        console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
+        // console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
         return snapshot.val();
     }
 }
@@ -259,12 +259,12 @@ let update_rgn = (n) => {
 
 let get_Current_user = async () => {
     CurrentUser = await get_user(current_email.hashCode());
-    console.log('Called ', CurrentUser);
+    // console.log('Called ', CurrentUser);
     return CurrentUser;
 };
 
 let encryptEmail = (em) => {
-    console.log(`EMail: ${em}`);
+    // console.log(`EMail: ${em}`);
     return em.hashCode()
 };
 export {
@@ -279,6 +279,7 @@ export {
     signin,
     create_group,
     get_group,
+    get_user,
     CurrentUser,
     get_Current_user,
     create_user,
