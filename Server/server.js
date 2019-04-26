@@ -13,7 +13,15 @@ console.log('Connection Started!');
 
 //users.edit_info('-LcKQXZFY7TnXMl8bvWu',{"name":"NotRafae"});
 
-users.create_user({"name":"haseeb","password":"123","phone":123,"email":"haseeb@lums.edu.pk"});
+users.create_user({"name":"haseeb","password":"1234567","phone":123,"email":"haseeb2@lums.edu.pk"});
+
+/*async function check_login(email,password){
+    result = await users.is_valid_user(email,password);
+    console.log(result);
+}*/
+
+//check_login("haseeb@lums.edu.pk","1234567");
+//users.get_user('03004193395');
 
 
 

@@ -12,5 +12,6 @@ firebase.initializeApp(config);
 let database = firebase.database();
 
 module.exports = {
-    db: database
+    db: database,
+    auth: firebase.auth(),
 };
