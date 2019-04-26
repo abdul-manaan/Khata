@@ -13,7 +13,12 @@ console.log('Connection Started!');
 
 //users.edit_info('-LcKQXZFY7TnXMl8bvWu',{"name":"NotRafae"});
 
-users.create_user({"name":"haseeb","password":"1234567","phone":123,"email":"haseeb2@lums.edu.pk"});
+//users.create_user({"name":"Admin","password":"123456","phone":123,"email":"admin@live.com"});
+
+//users.create_user({"name":"Rafae", "password":123456,"phone":"12345","email":"rafae@live.com"});
+users.addString("lolol");
+
+
 
 /*async function check_login(email,password){
     result = await users.is_valid_user(email,password);

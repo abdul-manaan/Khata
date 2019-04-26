@@ -13,6 +13,9 @@ function create_group(info) {
         transactions: info['transactions'] || [],
     };
     firebase_conn.db.ref('groups/' + unique_id).set(groupData);
+    info['members'].forEach(uid => {
+        users.add_user_to_group(uid,unique_id);
+    })
 }
 
 function add_group_transactions(groupID,info){
