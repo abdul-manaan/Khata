@@ -7,8 +7,8 @@ export default class SignInScreen extends Component {
     constructor(props) {
         super();
         this.state = {
-            phone: '',
-            password: '',
+            phone: 'admin@live.com',
+            password: '123456',
         }
     }
 
@@ -36,7 +36,7 @@ export default class SignInScreen extends Component {
                     <Image style={styles.inputIcon}
                            source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
                     <TextInput style={styles.inputs}
-                               placeholder="Phone Number"
+                               placeholder="Email Address"
                                keyboardType="email-address"
                                underlineColorAndroid='transparent'
                                onChangeText={(phone) => this.setState({phone})}/>

@@ -4,14 +4,14 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
 import {update_rgn} from "./data";
 
-export default class GroupName extends React.Component {
+export default class newTransacrionScreen extends React.Component {
 
     state = {};
 
 
     handleInput = (inp) => {
         //this.setState({[inp]});
-        update_rgn(inp); //recent group name
+        // update_rgn(inp);
     };
 
     render() {
@@ -19,18 +19,18 @@ export default class GroupName extends React.Component {
             <View style={styles.main}>
                 <AppBar
                     navigation={this.props.navigation}
-                    title='Group Name'
-                  subtitle='Enter group name'/>
+                    title='Transaction'
+                    subtitle='Create a new transaction'/>
 
-                        <TextInput style={styles.textBox}
-                                   placeholder="Enter your Group Name"
-                                   onChangeText={(text) => this.handleInput(text)}
-                        />
+                <TextInput style={styles.textBox}
+                           placeholder="Enter something about this transaction.."
+                           onChangeText={(text) => this.handleInput(text)}
+                />
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddGroup')}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddTransaction')}>
                     <Card style={styles.confirmButton}>
                         <Card.Content>
-                            <Title style={{textAlign: 'center', color: 'white',}}> Confirm </Title>
+                            <Title style={{textAlign: 'center', color: 'white',}}> Next </Title>
                         </Card.Content>
                     </Card>
                 </TouchableOpacity>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginBottom: 20,
         height: 60,
-        position: 'relative',
+        // position: 'absolute',
     },
     cardStyle: {
         backgroundColor: 'white',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     textBox:{
-       marginLeft: 8,
+        marginLeft: 8,
         marginRight: 8,
         marginTop: 40,
     }

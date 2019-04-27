@@ -14,6 +14,7 @@ let database = firebase.database();
 module.exports = {
     db: database,
     auth: firebase.auth(),
+    stor: firebase.storage(),
 };
 
 //export const db = database();

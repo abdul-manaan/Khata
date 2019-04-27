@@ -54,20 +54,20 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
-
+<<<<<<< HEAD
     Notification: {
         screen: Notification,
-
+=======
     Transaction: {
         screen: newTransactionScreen,
-
+>>>>>>> f2e9734e00dac3b35ba8a4e1ad1328eaab43bf75
         navigationOptions: {
             header: null,
         }
     },
+<<<<<<< HEAD
 
-
-
+=======
     AddTransaction: {
         screen: AddTransactionsScreen,
         navigationOptions: {
@@ -86,7 +86,7 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     }
-
+>>>>>>> f2e9734e00dac3b35ba8a4e1ad1328eaab43bf75
 }, {headerMode: 'screen'});
 
 

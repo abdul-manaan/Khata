@@ -16,8 +16,6 @@ import ProfileScreen from './components/ProfileScreen'
 const WIDTH = Dimensions.get('window').width;
 
 
-import Notification from './components/Notification'
-
 const DrawerConfig = {
     initialRouteName: 'MainStack',
     headerMode: 'screen',
@@ -54,20 +52,12 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
-
-    Notification: {
-        screen: Notification,
-
     Transaction: {
         screen: newTransactionScreen,
-
         navigationOptions: {
             header: null,
         }
     },
-
-
-
     AddTransaction: {
         screen: AddTransactionsScreen,
         navigationOptions: {
@@ -86,7 +76,6 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     }
-
 }, {headerMode: 'screen'});
 
 

@@ -13,6 +13,7 @@ var groups = {
 };
 
 
+
 var Notifications = {
     1: {
         Creator: 'Muzammil',
@@ -26,6 +27,39 @@ var Notifications = {
         Members: ['Muhammad Haseeb', 'Abdul Rafae Noor']
     }
 };
+
+/*GROUP STRUCTURE
+    group_id: {
+     "name": "str",
+     "members": [ids of users],
+     "transactions": [ids of transactions]
+ }
+
+ */
+
+//User Structure
+/*
+   user_id: {
+    profile:{
+    name: string,
+    phone: string/int,
+    email: string,
+    password: [],
+    picture: url,
+    notifications:[list of notification]
+    },
+    groups: [list of group_ids],
+    transaction_history = [list of transaction ids],
+    friends_list: [list of user ids],
+    payables: [],
+    recievables: []
+   }
+
+
+
+
+
+ */
 
 let friends = [
     'Muhammad Haseeb',
@@ -56,7 +90,6 @@ const updateQR = (update) => {
 };
 
 
-let login_details = {Admin: 'Admin'};
 
 
 String.prototype.hashCode = function () {
@@ -74,11 +107,13 @@ String.prototype.hashCode = function () {
 };
 
 let CurrentUser = {};
+let current_email = '';
 const signin = async (email, pass) => {
     let verify = await is_valid_user(email, pass);
     if (!verify) {
         return 1;
     }
+    current_email = email;
     CurrentUser = await get_user(email.hashCode());
     return 0;
 
@@ -96,9 +131,9 @@ async function is_valid_user(email, password) {
 async function get_user(userID) {
     let snapshot = await db.ref('users/' + userID).once('value');
     let result = snapshot.val();
-    console.log(result);
+    // console.log(result);
     if (result === null) {
-        console.log('User doesnt exist');
+        // console.log('User doesnt exist');
         return null;
     } else {
         return result;
@@ -112,7 +147,7 @@ import {auth, db} from '../config';
 
 //const transactions = require('./transactions');
 
-function create_group(info) {
+async function create_group(info) {
     // Creates a unique key in /users/
     let unique_id = db.ref().child('groups').push().key;
     if (info === undefined)
@@ -124,8 +159,23 @@ function create_group(info) {
         transactions: info['transactions'] || [],
     };
     db.ref('groups/' + unique_id).set(groupData);
+    info['members'].forEach(uid => {
+        add_user_to_group(uid, unique_id);
+    });
 }
 
+
+async function add_user_to_group(userID, groupID) {
+    let snap = await db.ref(`users/` + userID + '/groups').once('value');
+    if (snap.val() === null) {
+        db.ref('users/' + userID + '/groups').set([groupID]);
+    } else {
+        let groupList = snap.val();
+        // console.log(groupList);
+        groupList.push(groupID);
+        db.ref('users/' + userID + '/groups').set(groupList);
+    }
+}
 
 async function create_user(info) {
     if (info === undefined)
@@ -150,11 +200,15 @@ async function create_user(info) {
     let unique_id = userProfile['email'].hashCode();
 
     let snapshot = await db.ref('users/' + unique_id).once('value');
+    //let strRef = stor.ref();
+
+    //strRef.putString("abc");
 
     if (snapshot.val() != null) { // User already exists no need to create account
-        console.log("User already exists, not making an account");
+        // console.log("User already exists, not making an account");
         return;
     }
+
 
     db.ref('users/' + unique_id).set(userData);
     auth.createUserWithEmailAndPassword(userProfile['email'], userProfile['password']);
@@ -195,17 +249,38 @@ async function create_user(info) {
 //     })
 // }
 //
-// async function get_group(groupID){
-//     let snapshot = await firebase_conn.db.ref(`groups/${groupID}`).once('value');
-//
-//     if(snapshot.val() === null){
-//         console.log(`GroupID: ${groupID} does not exist...`);
-//         return null;
-//     } else {
-//         console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
-//         return snapshot.val();
-//     }
-// }
+async function get_group(groupID) {
+    let snapshot = await db.ref(`groups/${groupID}`).once('value');
+
+    if (snapshot.val() === null) {
+        // console.log(`GroupID: ${groupID} does not exist...`);
+        return null;
+    } else {
+        // console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
+        return snapshot.val();
+    }
+}
+
+
+async function get_friends() {
+    let snapshot = await db.ref(`users/${CurrentUser['profile']['email'].hashCode()}/friends_list`).once('value');
+
+    if (snapshot.val() === null) {
+        console.log('No friends found');
+        // console.log(`GroupID: ${groupID} does not exist...`);
+        return null;
+    } else {
+        console.log('Friends found');
+        console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
+        let friendsDic = snapshot.val();
+        let myFriends = {};
+        await Promise.all(Object.keys(friendsDic).map(async g => myFriends[friendsDic[g]] = await get_user(friendsDic[g]) ));
+        console.log('\n\n\n', myFriends);
+        return myFriends;
+    }
+}
+
+
 
 // module.exports = {
 //     create_group: create_group,
@@ -219,6 +294,16 @@ let update_rgn = (n) => {
     recent_group_name = n;
 };
 
+let get_Current_user = async () => {
+    CurrentUser = await get_user(current_email.hashCode());
+    // console.log('Called ', CurrentUser);
+    return CurrentUser;
+};
+
+let encryptEmail = (em) => {
+    // console.log(`EMail: ${em}`);
+    return em.hashCode()
+};
 export {
     recent_group_name,
     update_rgn,
@@ -230,6 +315,13 @@ export {
     profileName,
     signin,
     create_group,
+    get_group,
+    get_user,
+    CurrentUser,
+    get_Current_user,
     create_user,
     Notifications,
+
+    encryptEmail,
+    get_friends,
 };

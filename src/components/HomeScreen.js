@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from "./AppBar";
 import GroupCard from "./GroupCard";
+import {FAB} from "react-native-paper";
 import {ScrollView, StyleSheet, View,} from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -24,6 +25,12 @@ export default class HomeScreen extends React.Component {
                 <ScrollView>
                     <GroupCard navigation={this.props.navigation}/>
                 </ScrollView>
+                <FAB
+                    style={styles.fab}
+                    small
+                    icon="add"
+                    onPress={() => console.log('Pressed')}
+                />
             </View>
         );
     }
@@ -34,5 +41,12 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         backgroundColor: 'antiquewhite',
-    }
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+        color: '#aa0022',
+    },
 });
