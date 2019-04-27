@@ -12,6 +12,7 @@ import newTransactionScreen from './components/newTransacrionScreen'
 import AddTransactionsScreen from './components/AddTransactionsScreen'
 import GroupInfoScreen from './components/GroupInfoScreen'
 import ProfileScreen from './components/ProfileScreen'
+import oldTransactionsScreen from './components/oldTransactionsScreen'
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -69,7 +70,12 @@ export const MainStack = createStackNavigator({
         }
     },
 
-
+    oldTransactions: {
+      screen: oldTransactionsScreen,
+      navigationOptions: {
+          header: null,
+      }
+    },
 
     AddTransaction: {
         screen: AddTransactionsScreen,

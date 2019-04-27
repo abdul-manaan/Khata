@@ -43,7 +43,7 @@ export default class GroupCard extends React.Component {
                     </Card.Content>
                 </Card>
 
-                <Card onPress={() => console.log('pressed')} style={[styles.cardStyle, styles.newCard]} >
+                <Card onPress={() => this.props.navigation.navigate('oldTransactions')} style={[styles.cardStyle, styles.newCard]} >
                     <Card.Content>
                         <View style = {{flexDirection: 'row'}}>
                             <Title> Old Transactions</Title>
