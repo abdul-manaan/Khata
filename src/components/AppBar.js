@@ -5,18 +5,35 @@ import {StyleSheet} from 'react-native';
 export default class AppBar extends React.Component {
 
     render() {
-        return (
-            <Appbar.Header style={styles.bar}>
-                <Appbar.Action icon="menu" onPress={() => this.props.navigation.toggleDrawer()}/>
-                <Appbar.Content
-                    title={this.props.title}
-                    subtitle={this.props.subtitle}
-                />
-                {this.props.title !== 'Home' ||
-                <Appbar.Action icon="add" onPress={() => this.props.navigation.navigate('GroupName')}/>}
 
-            </Appbar.Header>
-        );
+        if(this.props.info === 'Group Info'){
+            return (
+                <Appbar.Header style={styles.bar}>
+                    <Appbar.Action icon="menu" onPress={() => this.props.navigation.toggleDrawer()}/>
+                    <Appbar.Content
+                        title={this.props.title}
+                        subtitle={this.props.subtitle}
+                    />
+                    {/*<Appbar.Action icon="add" onPress={() => this.props.navigation.navigate('GroupName')}/>*/}
+
+                </Appbar.Header>
+            );
+        }
+        else{
+            return (
+                <Appbar.Header style={styles.bar}>
+                    <Appbar.Action icon="menu" onPress={() => this.props.navigation.toggleDrawer()}/>
+                    <Appbar.Content
+                        title={this.props.title}
+                        subtitle={this.props.subtitle}
+                    />
+                    {this.props.title !== 'Home' ||
+                    <Appbar.Action icon="add" onPress={() => this.props.navigation.navigate('GroupName')}/>}
+
+                </Appbar.Header>
+            );
+        }
+
     }
 }
 

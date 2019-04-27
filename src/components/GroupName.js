@@ -11,7 +11,7 @@ export default class GroupName extends React.Component {
 
     handleInput = (inp) => {
         //this.setState({[inp]});
-        update_rgn(inp);
+        update_rgn(inp); //recent group name
     };
 
     render() {

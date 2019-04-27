@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Card, Title} from 'react-native-paper';
+import {StyleSheet, Text, View} from 'react-native';
+import {Icon} from 'react-native-elements'
+import {Avatar, Card, Title} from 'react-native-paper';
 import {get_user,} from './data';
 import {groupToShow} from "./groupscreensflow";
 import AppBar from "./AppBar";
@@ -24,9 +25,11 @@ export default class GroupCard extends React.Component {
     render() {
         this._fetchUsers();
         return (
-            <View>
+            <View style={styles.main}>
                 <AppBar navigation={this.props.navigation} title={groupToShow['name']}
-                        subtitle='Members & Transactions'/>
+                        subtitle='Members & Transactions' info='Group Info'/>
+
+
                 <Card onPress={() => console.log('pressed')} style={styles.cardStyle}>
                     <Card.Content>
                         {
@@ -39,6 +42,19 @@ export default class GroupCard extends React.Component {
                         }
                     </Card.Content>
                 </Card>
+
+                <Card onPress={() => console.log('pressed')} style={[styles.cardStyle, styles.newCard]} >
+                    <Card.Content>
+                        <View style = {{flexDirection: 'row'}}>
+                            <Title> Old Transactions</Title>
+                            <Text style={{color: 'white'}}>Hell Hell Hell Hell</Text>
+                            <Icon size={40} name="trending-flat" color='#aa2200' style={{position:'absolute', right:0}}/>
+                        </View>
+                    </Card.Content>
+                </Card>
+
+
+
             </View>
 
         );
@@ -55,6 +71,9 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         marginRight: 8,
     },
+    newCard: {
+      marginTop: 5,
+    },
     name: {
         fontSize: 15,
         marginTop: 6,
@@ -67,5 +86,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
 
     },
-
+    main: {
+        flex: 1,
+        backgroundColor: 'antiquewhite',
+    },
 });

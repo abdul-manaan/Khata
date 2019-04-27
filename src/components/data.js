@@ -245,6 +245,27 @@ async function get_group(groupID) {
     }
 }
 
+
+async function get_friends() {
+    let snapshot = await db.ref(`users/${CurrentUser['profile']['email'].hashCode()}/friends_list`).once('value');
+
+    if (snapshot.val() === null) {
+        console.log('No friends found');
+        // console.log(`GroupID: ${groupID} does not exist...`);
+        return null;
+    } else {
+        console.log('Friends found');
+        console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
+        let friendsDic = snapshot.val();
+        let myFriends = {};
+        await Promise.all(Object.keys(friendsDic).map(async g => myFriends[friendsDic[g]] = await get_user(friendsDic[g]) ));
+        console.log('\n\n\n', myFriends);
+        return myFriends;
+    }
+}
+
+
+
 // module.exports = {
 //     create_group: create_group,
 //     get_group_transactions: get_group_transactions,
@@ -284,4 +305,5 @@ export {
     get_Current_user,
     create_user,
     encryptEmail,
+    get_friends,
 };
