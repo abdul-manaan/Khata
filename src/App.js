@@ -12,6 +12,8 @@ import GroupName from './components/GroupName'
 const WIDTH = Dimensions.get('window').width;
 
 
+import Notification from './components/Notification'
+
 const DrawerConfig = {
     initialRouteName: 'MainStack',
     headerMode: 'screen',
@@ -44,6 +46,12 @@ export const MainStack = createStackNavigator({
     },
     GroupName: {
         screen: GroupName,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    Notification: {
+        screen: Notification,
         navigationOptions: {
             header: null,
         }

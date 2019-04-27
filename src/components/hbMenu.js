@@ -34,6 +34,11 @@ export default class HbMenu extends React.Component {
                             {this.navLink('Home', 'Home')}
                         </View>
                         <View style={styles.sideLink}>
+                            <Icon name='ac-unit' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
+                            {this.navLink('Notification', 'Notifications')}
+                        </View>
+                        <View style={styles.sideLink}>
                             <Icon name='person' color='#aa2200' size={35}/>
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('Profile', 'Profile')}

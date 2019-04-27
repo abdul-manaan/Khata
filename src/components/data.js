@@ -12,6 +12,21 @@ var groups = {
     }
 };
 
+
+var Notifications = {
+    1: {
+        Creator: 'Muzammil',
+        Title: 'Recently eating at KFC!',
+        Members: ['Muhammad Haseeb', 'Muzammil Hussain']
+    },
+    2: {Creator: 'Awais', Title: 'Recently eating at PDC!', Members: ['Muhammad Haseeb', 'Abdul Manan']},
+    3: {
+        Creator: 'Haseeb',
+        Title: 'Recently eating at their own home!',
+        Members: ['Muhammad Haseeb', 'Abdul Rafae Noor']
+    }
+};
+
 let friends = [
     'Muhammad Haseeb',
     'Muzammil Hussain',
@@ -216,4 +231,5 @@ export {
     signin,
     create_group,
     create_user,
+    Notifications,
 };
