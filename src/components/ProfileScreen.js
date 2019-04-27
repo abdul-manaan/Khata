@@ -32,7 +32,7 @@ export default class Profile extends Component {
                             </View>
                             <View style={styles.emailRow}>
                                 <View styles={styles.emailColumn}>
-                                    <Text style={styles.emailText}>suleman@love.com</Text>
+                                    <Text style={styles.emailText}>salman@chutiyapa.com</Text>
                                 </View>
                             </View>
                         </View>
