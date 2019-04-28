@@ -165,12 +165,28 @@ async function add_user_to_group(userID,groupID){
         firebase_conn.db.ref('users/'+userID+'/groups').set([groupID]);
     } else {
         let groupList = snap.val();
-        firebase_conn.db.ref('users/'+userID+'/groups').set(groupList.push(userID));
+        groupList.push(userID);
+        firebase_conn.db.ref('users/'+userID+'/groups').set(groupList);
     }
 }
 
 function addString(str){
     firebase_conn.stor.ref().child("images/").putString(str);
+}
+
+async function remove_group(userID, groupID){
+    let snapshot = await firebase_conn.db.ref('users/'+userID+'/groups').once('value');
+
+    if(snapshot.val() === null)
+        return;
+
+    let groupList = snapshot.val();
+
+    let updatedList = groupList.filter(item => {
+        return (item != groupID);
+    });
+
+    firebase_conn.db.ref('users/'+userID+'/groups').set(updatedList);
 }
 
 module.exports = {
@@ -184,4 +200,5 @@ module.exports = {
     is_valid_user: is_valid_user,
     addString: addString,
     add_user_to_group: add_user_to_group,
+    remove_group: remove_group,
 };
