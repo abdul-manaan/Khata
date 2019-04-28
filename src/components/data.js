@@ -108,6 +108,7 @@ String.prototype.hashCode = function () {
 
 
 let CurrentUser = {};
+
 let current_email = '';
 const signin = async (email, pass) => {
     let verify = await is_valid_user(email, pass);
@@ -150,9 +151,13 @@ import {auth, db} from '../config';
 
 async function create_group(info) {
     // Creates a unique key in /users/
-    let unique_id = db.ref().child('groups').push().key;
-    if (info === undefined)
+    if (info === undefined) {
         return;
+    }
+
+
+    // let unique_id = db.ref().child('groups').push().key;
+    let unique_id = info['name'].hashCode();
 
     let groupData = {
         name: info['name'],
@@ -230,14 +235,14 @@ async function create_user(info) {
 //
 //     let groupTransactionData = {
 //         "creator_id": info['creator_id'],
-//         "time":info['time'],
+//         "time":info['time'] || 0,
 //         "description":info['description'],
 //         "transactions":tidList,
 //     };
 //
 //     return firebase_conn.db.ref(`groups/${groupID}/transactions/${unique_id}`).set(groupTransactionData);
 // }
-//
+
 
 function get_group_transactions(groupID) {
     console.log('GROUP ID', groupID);
@@ -283,6 +288,55 @@ async function get_friends() {
     }
 }
 
+async function add_notification(info, userID){
+    return db.ref('users/'+userID+'/notifications').once('value').then(snapshot => {
+        if(snapshot.val() === null){
+            db.ref('users/'+userID+'/notifications').set([info]);
+        } else {
+            let notList = snapshot.val();
+            notList.unshift(info);
+            db.ref('users/'+userID+'/notifications').set(notList);
+        }
+    });
+}
+
+
+
+/*
+* {
+*   "creator": "muzammil",
+*   "creatorID": "12345",
+*   "title": "Eating sth at sth",
+*   "transaction": {"from": "haseeb", "to": "muzammil", "amount": "1564"}
+* }
+*
+* */
+/*
+* {
+*   group_name: name
+*   transaction_info: {
+*       0: {to: '', from: '', amount: '', toEm: '', fromEm: ''}
+*       1: {to: '', from: '', amount: '', toEm: '', fromEm: ''}
+*   }
+* }
+*
+* */
+
+let send_notifications = (data) => {
+    let today = new Date();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    Object.keys(data["transaction_info"]).map(m => {
+        let temp = {};
+        temp["creator"] = CurrentUser['profile']['name'];
+        temp["creatorID"] = CurrentUser['profile']['email'].hashCode();
+        temp['time'] = time ;
+        temp['transaction'] = data["transaction_info"][m];
+
+    });
+    console.log(data);
+
+
+};
 
 
 // module.exports = {
@@ -327,4 +381,5 @@ export {
     get_group_transactions,
     encryptEmail,
     get_friends,
+    send_notifications,
 };

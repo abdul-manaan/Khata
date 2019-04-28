@@ -2,7 +2,6 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
-import {update_rgn} from "./data";
 
 export default class newTransacrionScreen extends React.Component {
 
@@ -23,7 +22,7 @@ export default class newTransacrionScreen extends React.Component {
                     subtitle='Create a new transaction'/>
 
                 <TextInput style={styles.textBox}
-                           placeholder="Enter something about this transaction.."
+                           placeholder="Enter gist about this transaction"
                            onChangeText={(text) => this.handleInput(text)}
                 />
 

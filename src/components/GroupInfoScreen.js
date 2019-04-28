@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements'
-import {Avatar, Card, Title} from 'react-native-paper';
+import {Avatar, Card, FAB, Title} from 'react-native-paper';
 import {get_user,} from './data';
-import {groupToShow} from "./groupscreensflow";
+import {groupToShow, setCGM} from "./groupscreensflow";
 import AppBar from "./AppBar";
 //import {Icon} from "react-native-paper/typings/components/Avatar";
 
@@ -19,6 +19,7 @@ export default class GroupCard extends React.Component {
         let memIds = groupToShow['members'];
         await Promise.all(memIds.map(async g => local_users.push(await get_user(g))));
         console.log('\n\n\nDone\n\n\n', local_users);
+        setCGM(local_users);
         this.setState({members: local_users});
     };
 
@@ -47,13 +48,18 @@ export default class GroupCard extends React.Component {
                     <Card.Content>
                         <View style = {{flexDirection: 'row'}}>
                             <Title> Old Transactions</Title>
-                            <Text style={{color: 'white'}}>Hell Hell Hell Hell</Text>
+                            <Text style={{color: 'white'}}>Hell Hell Hell</Text>
                             <Icon size={40} name="trending-flat" color='#aa2200' style={{position:'absolute', right:0}}/>
                         </View>
                     </Card.Content>
                 </Card>
 
-
+                <FAB
+                    style={styles.fab}
+                    small
+                    icon="add"
+                    onPress={() => this.props.navigation.navigate('newTransactions')}
+                />
 
             </View>
 
@@ -89,5 +95,12 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         backgroundColor: 'antiquewhite',
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+        color: '#aa0022',
     },
 });

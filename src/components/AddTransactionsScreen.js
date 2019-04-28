@@ -2,29 +2,50 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {StyleSheet, TouchableOpacity, View,ScrollView} from 'react-native';
 import {Card, FAB, TextInput, Title} from 'react-native-paper';
-import {update_rgn} from "./data";
 import TransactionCard from "./TransactionCard";
+import {groupToShow} from "./groupscreensflow";
+import {data} from './transactionscreenflow';
+import {send_notifications} from './data'
 
 export default class newTransacrionScreen extends React.Component {
 
     state = {numOfCards:1};
-    transactionData = [];
+    transactionData = {};
+
+    _handle_press = () => {
+        // this.transactionData[groupToShow['name']] = data;
+        this.transactionData['name'] = groupToShow['name'];
+        this.transactionData['transaction_info'] = data;
+        /*
+        * {
+        *   group_name: name
+        *   transaction_info: {
+        *       0: {to: '', from: '', amount: '', toEm: '', fromEm: ''}
+        *   }
+        * }
+        *
+        * */
+
+        send_notifications(this.transactionData);
+    };
+
 
     createTransaction = () => {
+
         let table =[];
         for(let i =0; i< this.state.numOfCards; i++){
-            table.push(<TransactionCard id={i} />)
+            table.push(<TransactionCard id={i} group={groupToShow}/>)
         }
         return table;
-    }
+    };
 
     render() {
         return (
             <View style={styles.main}>
                 <AppBar
                     navigation={this.props.navigation}
-                    title='Transaction'
-                    subtitle='Transaction Details'/>
+                    title='Create new transaction'
+                    subtitle='Enter transaction details'/>
                 <ScrollView>
                     {this.createTransaction()}
                     <FAB
@@ -34,7 +55,7 @@ export default class newTransacrionScreen extends React.Component {
                         color="white"
                         onPress={() => {this.setState({numOfCards:this.state.numOfCards+1})}}
                     />
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('AddGroup')}>
+                    <TouchableOpacity onPress={() => this._handle_press()}>
                         <Card style={styles.confirmButton}>
                             <Card.Content>
                                 <Title style={{textAlign: 'center', color: 'white',}}> Confirm </Title>

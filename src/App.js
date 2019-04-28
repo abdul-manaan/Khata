@@ -70,7 +70,7 @@ export const MainStack = createStackNavigator({
 
 
 
-    Transaction: {
+    newTransactions: {
         screen: newTransactionScreen,
 
         navigationOptions: {
