@@ -16,14 +16,14 @@ export default class NotificationCard extends React.Component {
     }
 
     render() {
-        return Object.keys(Notifications).map(g =>
-            <Card onPress={() => this.caller(Notifications[g])} style={styles.cardStyle}>
+        return Notifications.map(g =>
+            <Card onPress={() => this.caller(g)} style={styles.cardStyle}>
                 <Card.Content>
-                    <Title style={{fontSize: 16}}> {Notifications[g].Creator + " created a transaction with you"}</Title>
+                    <Title style={{fontSize: 16}}> {g.creator + " created a transaction with you"}</Title>
                     <View style={{flexDirection: 'row'}}>
                         {/*<Avatar.Icon size={24} icon="person-pin"/>*/}
                         {<Text style={{color: 'white'}}>Hell</Text>}
-                        <Title style={{fontSize: 12}}>{Notifications[g].Title}</Title>
+                        <Title style={{fontSize: 12}}>{g.title}</Title>
                     </View>
                 </Card.Content>
             </Card>
