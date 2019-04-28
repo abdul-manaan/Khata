@@ -27,7 +27,7 @@ export default class Profile extends Component {
                                 <Icon
                                     name="email"
                                     underlayColor="transparent"
-                                    onPress={() => console.log('a')}
+                                    onPress={() => console.log('')}
                                 />
                             </View>
                             <View style={styles.emailRow}>
@@ -41,7 +41,7 @@ export default class Profile extends Component {
                                 <Icon
                                     name="call"
                                     underlayColor="transparent"
-                                    onPress={() => console.log('a')}
+                                    onPress={() => console.log('')}
                                 />
                             </View>
                             <View style={styles.emailRow}>

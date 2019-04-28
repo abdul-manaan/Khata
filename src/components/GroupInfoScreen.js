@@ -18,7 +18,6 @@ export default class GroupCard extends React.Component {
         let local_users = [];
         let memIds = groupToShow['members'];
         await Promise.all(memIds.map(async g => local_users.push(await get_user(g))));
-        console.log('\n\n\nDone\n\n\n', local_users);
         setCGM(local_users);
         this.setState({members: local_users});
     };

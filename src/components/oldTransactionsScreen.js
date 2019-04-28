@@ -11,7 +11,6 @@ export default class oldTransactionsScreen extends React.Component {
     };
 
     _fetch_transactions = async () => {
-        console.log('Calling')
         let transactionsList = await get_group_transactions(groupToShow);
 
     };

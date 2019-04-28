@@ -5,7 +5,7 @@ let updateData = (part) => {
     *   1: {to: '', from: '', amount: '', toEm: '', fromEm: ''}
     * }
     * */
-    data[part['id']] = part['value']
+    data[Object.keys(part)[0]] = part[Object.keys(part)[0]]
 };
 
 export{
