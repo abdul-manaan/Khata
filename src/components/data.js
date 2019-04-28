@@ -331,7 +331,8 @@ let send_notifications = (data) => {
         temp["creatorID"] = CurrentUser['profile']['email'].hashCode();
         temp['time'] = time ;
         temp['transaction'] = data["transaction_info"][m];
-
+        add_notification(temp,data["transaction_info"][m]['toEm'].hashCode())
+        add_notification(temp,data["transaction_info"][m]['fromEm'].hashCode())
     });
     console.log(data);
 
