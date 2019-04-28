@@ -15,6 +15,9 @@ import ProfileScreen from './components/ProfileScreen'
 import Approval from './components/Approval'
 
 
+import oldTransactionsScreen from './components/oldTransactionsScreen'
+
+
 const WIDTH = Dimensions.get('window').width;
 
 
@@ -64,6 +67,9 @@ export const MainStack = createStackNavigator({
         }
     },
 
+
+
+
     Transaction: {
         screen: newTransactionScreen,
 
@@ -71,6 +77,16 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
+
+
+    oldTransactions: {
+      screen: oldTransactionsScreen,
+      navigationOptions: {
+          header: null,
+      }
+    },
+
+
     AddTransaction: {
         screen: AddTransactionsScreen,
         navigationOptions: {

@@ -41,7 +41,6 @@ export default class AddGroupScreen extends React.Component {
 
     fetch_friends = async () => {
         let fr = await get_friends();
-        console.log('Friends have arrived, so is winter', fr);
         this.setState({friends: fr});
     };
 

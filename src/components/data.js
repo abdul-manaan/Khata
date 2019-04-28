@@ -75,7 +75,6 @@ const addGroup = (newGroup) => {
     const k = (Object.keys(groups)).length + 1;
     groups[k] = newGroup;
     //groups = {...groups};
-    console.log('Added', groups)
 };
 
 let qrInfo = {
@@ -104,6 +103,9 @@ String.prototype.hashCode = function () {
     }
     return hash;
 };
+
+
+
 
 let CurrentUser = {};
 let current_email = '';
@@ -236,17 +238,22 @@ async function create_user(info) {
 //     return firebase_conn.db.ref(`groups/${groupID}/transactions/${unique_id}`).set(groupTransactionData);
 // }
 //
-// function get_group_transactions(groupID) {
-//     return firebase_conn.db.ref(`groups/${groupID}/transactions`).once('value').then(snapshot => {
-//         if (snapshot.val() === null) {
-//             console.log(`No transactions for group ${groupID}`)
-//         } else {
-//             let transactionList = snapshot.val();
-//             console.log(transactionList);
-//             return transactionList;
-//         }
-//     })
-// }
+
+function get_group_transactions(groupID) {
+    console.log('GROUP ID', groupID);
+    return db.ref(`groups/${groupID}/transactions`).once('value').then(snapshot => {
+        if (snapshot.val() === null) {
+            console.log(`No transactions for group ${groupID}`)
+        } else {
+            let transactionList = snapshot.val();
+            console.log('----------------------------------');
+            console.log(transactionList);
+            console.log('----------------------------------');
+
+            return transactionList;
+        }
+    })
+}
 //
 async function get_group(groupID) {
     let snapshot = await db.ref(`groups/${groupID}`).once('value');
@@ -256,7 +263,9 @@ async function get_group(groupID) {
         return null;
     } else {
         // console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
-        return snapshot.val();
+        let res = snapshot.val();
+        res['id'] = groupID;
+        return res;
     }
 }
 
@@ -265,16 +274,11 @@ async function get_friends() {
     let snapshot = await db.ref(`users/${CurrentUser['profile']['email'].hashCode()}/friends_list`).once('value');
 
     if (snapshot.val() === null) {
-        console.log('No friends found');
-        // console.log(`GroupID: ${groupID} does not exist...`);
         return null;
     } else {
-        console.log('Friends found');
-        console.log(`Recieved ${JSON.stringify(snapshot.val())}`);
         let friendsDic = snapshot.val();
         let myFriends = {};
         await Promise.all(Object.keys(friendsDic).map(async g => myFriends[friendsDic[g]] = await get_user(friendsDic[g]) ));
-        console.log('\n\n\n', myFriends);
         return myFriends;
     }
 }
@@ -320,7 +324,7 @@ export {
     get_Current_user,
     create_user,
     Notifications,
-
+    get_group_transactions,
     encryptEmail,
     get_friends,
 };

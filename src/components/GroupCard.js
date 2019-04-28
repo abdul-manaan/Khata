@@ -22,7 +22,7 @@ export default class GroupCard extends React.Component {
         let groups = user['groups'];
 
         await Promise.all(groups.map(async g => local_groups_store.push(await get_group(g))));
-        console.log(`temp_store: ${local_groups_store}`);
+       // console.log(`temp_store: ${local_groups_store}`);
         //if(local_groups_store.length < 1){this.gfound = false;}
         this.setState({groups: local_groups_store})
 
