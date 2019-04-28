@@ -6,16 +6,6 @@ import {ScrollView, StyleSheet, View,} from 'react-native';
 export default class Notification extends React.Component {
     state = {};
 
-    componentDidMount() {
-        this.props.navigation.addListener(
-            'didFocus',
-            () => {
-                this.forceUpdate();
-            }
-        );
-    }
-
-
 
     render() {
         return (

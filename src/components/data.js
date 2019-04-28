@@ -27,6 +27,13 @@ var Notifications = {
     }
 };
 
+
+async function fetch_notification(userID){
+    let snapshot = await db.ref('users/'+userID+'/notifications').once('value');
+    return snapshot.val();
+}
+
+
 /*GROUP STRUCTURE
     group_id: {
      "name": "str",
@@ -285,13 +292,11 @@ async function get_friends() {
 async function add_notification(info, userID){
     return db.ref('users/'+userID+'/notifications').once('value').then(snapshot => {
         if(snapshot.val() === null){
-            console.log('Log ')
             db.ref('users/'+userID+'/notifications').set([info]);
         } else {
             let notList = snapshot.val();
             notList.unshift(info);
             db.ref('users/'+userID+'/notifications').set(notList);
-            console.log(`for ${userID}, nots: ${notList}`)
         }
     });
 }
@@ -319,7 +324,6 @@ async function add_notification(info, userID){
 * */
 
 let send_notifications = (data) => {
-    console.log('In send_notifications')
     let today = new Date();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     Object.keys(data["transaction_info"]).map(m => {
@@ -328,6 +332,7 @@ let send_notifications = (data) => {
         temp["creatorID"] = CurrentUser['profile']['email'].hashCode();
         temp['time'] = time ;
         temp['transaction'] = data["transaction_info"][m];
+        temp['title'] = data['title'];
         add_notification(temp,data["transaction_info"][m]['toEm'].hashCode());
         add_notification(temp,data["transaction_info"][m]['fromEm'].hashCode());
     });
@@ -377,4 +382,5 @@ export {
     encryptEmail,
     get_friends,
     send_notifications,
+    fetch_notification,
 };

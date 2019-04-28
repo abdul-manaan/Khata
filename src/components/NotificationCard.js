@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Avatar, Card, Paragraph, Title} from 'react-native-paper';
-import {Notifications} from './data';
+import {fetch_notification, CurrentUser,} from './data';
 import {updateNTS} from './notificationsscreenflow'
 //import {Icon} from "react-native-paper/typings/components/Avatar";
 
@@ -10,24 +10,43 @@ import {updateNTS} from './notificationsscreenflow'
 
 export default class NotificationCard extends React.Component {
 
+    state = {notifications: []};
+
     caller = (g) => {
-        updateNTS(g)
+        updateNTS(g);
         this.props.navigation.navigate('Approval')
-    }
+    };
+
+
+    getNotifications = async() => {
+      let nots = await fetch_notification(CurrentUser['profile']['email'].hashCode());
+      console.log(nots);
+      this.setState({notifications: nots})
+
+    };
 
     render() {
-        return Notifications.map(g =>
-            <Card onPress={() => this.caller(g)} style={styles.cardStyle}>
-                <Card.Content>
-                    <Title style={{fontSize: 16}}> {g.creator + " created a transaction with you"}</Title>
-                    <View style={{flexDirection: 'row'}}>
-                        {/*<Avatar.Icon size={24} icon="person-pin"/>*/}
-                        {<Text style={{color: 'white'}}>Hell</Text>}
-                        <Title style={{fontSize: 12}}>{g.title}</Title>
-                    </View>
-                </Card.Content>
-            </Card>
-        );
+        this.getNotifications();
+        if(this.state.notifications.length > 0){
+            return this.state.notifications.map(g =>
+                <Card onPress={() => this.caller(g)} style={styles.cardStyle}>
+                    <Card.Content>
+                        <Title style={{fontSize: 16}}> {g.creator + " created a transaction with you"}</Title>
+                        <View style={{flexDirection: 'row'}}>
+                            {/*<Avatar.Icon size={24} icon="person-pin"/>*/}
+                            {<Text style={{color: 'white'}}>Hell</Text>}
+                            <Title style={{fontSize: 12}}>{g.title}</Title>
+                        </View>
+                    </Card.Content>
+                </Card>
+            );
+        }
+        else{
+            return(
+                <View></View>
+            );
+        }
+
     }
 }
 
