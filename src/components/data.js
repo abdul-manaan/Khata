@@ -18,8 +18,7 @@ var Notifications = {
     1: {
         Creator: 'Muzammil',
         Title: 'Recently eating at KFC!',
-        Members: ['Muhammad Haseeb', 'Muzammil Hussain']
-    },
+        Transaction: {From: "Haseeb Chutia" , To: "Manan", Amount : 50}},
     2: {Creator: 'Awais', Title: 'Recently eating at PDC!', Members: ['Muhammad Haseeb', 'Abdul Manan']},
     3: {
         Creator: 'Haseeb',

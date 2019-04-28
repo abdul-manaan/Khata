@@ -12,6 +12,8 @@ import newTransactionScreen from './components/newTransacrionScreen'
 import AddTransactionsScreen from './components/AddTransactionsScreen'
 import GroupInfoScreen from './components/GroupInfoScreen'
 import ProfileScreen from './components/ProfileScreen'
+import Approval from './components/Approval'
+
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -57,6 +59,10 @@ export const MainStack = createStackNavigator({
 
     Notification: {
         screen: Notification,
+        navigationOptions: {
+            header: null,
+        }
+    },
 
     Transaction: {
         screen: newTransactionScreen,
@@ -65,9 +71,6 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
-
-
-
     AddTransaction: {
         screen: AddTransactionsScreen,
         navigationOptions: {
@@ -85,9 +88,14 @@ export const MainStack = createStackNavigator({
         navigationOptions: {
             header: null,
         }
-    }
-
-}, {headerMode: 'screen'});
+    },
+    Approval: {
+        screen: Approval,
+        navigationOptions: {
+            header: null,
+        }
+    },
+},{headerMode: 'screen'});
 
 
 export const Drawer = createDrawerNavigator({
