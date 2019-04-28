@@ -21,7 +21,9 @@ export default class NotificationCard extends React.Component {
     getNotifications = async() => {
       let nots = await fetch_notification(CurrentUser['profile']['email'].hashCode());
       console.log(nots);
-      this.setState({notifications: nots})
+      if(nots){
+          this.setState({notifications: nots})
+      }
 
     };
 
@@ -33,9 +35,10 @@ export default class NotificationCard extends React.Component {
                     <Card.Content>
                         <Title style={{fontSize: 16}}> {g.creator + " created a transaction with you"}</Title>
                         <View style={{flexDirection: 'row'}}>
-                            {/*<Avatar.Icon size={24} icon="person-pin"/>*/}
                             {<Text style={{color: 'white'}}>Hell</Text>}
-                            <Title style={{fontSize: 12}}>{g.title}</Title>
+                            <Title style={{fontSize: 14}}>{g.title}</Title>
+                            {<Text style={{color: 'white'}}>Hell</Text>}
+                            <Text style={{fontSize: 20}}>{g.time}</Text>
                         </View>
                     </Card.Content>
                 </Card>

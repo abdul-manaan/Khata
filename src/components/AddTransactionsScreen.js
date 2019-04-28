@@ -4,7 +4,7 @@ import {StyleSheet, TouchableOpacity, View,ScrollView} from 'react-native';
 import {Card, FAB, TextInput, Title} from 'react-native-paper';
 import TransactionCard from "./TransactionCard";
 import {groupToShow} from "./groupscreensflow";
-import {data} from './transactionscreenflow';
+import {data, gist} from './transactionscreenflow';
 import {send_notifications} from './data'
 
 export default class newTransacrionScreen extends React.Component {
@@ -16,6 +16,7 @@ export default class newTransacrionScreen extends React.Component {
         // this.transactionData[groupToShow['name']] = data;
         this.transactionData['name'] = groupToShow['name'];
         this.transactionData['transaction_info'] = data;
+        this.transactionData['title'] = gist;
         /*
         * {
         *   group_name: name

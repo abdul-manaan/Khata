@@ -65,8 +65,8 @@ export default class TransactionCard extends React.Component {
                                    keyboardType='numeric'
                                    label= "Amount (Rs.)"
                                    onChangeText={(text) => {
+                                       this.handleInput(text);
                                        updateData({[this.props.id]: {'to': this.state.to, 'from': this.state.from, 'amount': this.state.amount, 'toEm': mapping[this.state.to], 'fromEm': mapping[this.state.from]}});
-                                       this.handleInput(text)
                                    }}
                                    value={this.state.amount}
                         />

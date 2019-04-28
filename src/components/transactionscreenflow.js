@@ -8,7 +8,13 @@ let updateData = (part) => {
     data[Object.keys(part)[0]] = part[Object.keys(part)[0]]
 };
 
+let gist = '';
+let updateGist = (g) => {
+    gist = g;
+}
 export{
     data,
     updateData,
+    gist,
+    updateGist,
 }

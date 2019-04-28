@@ -2,15 +2,17 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
+import {updateGist} from "./transactionscreenflow";
 
 export default class newTransacrionScreen extends React.Component {
 
     state = {};
 
 
-    handleInput = (inp) => {
+    handleInput = (g) => {
         //this.setState({[inp]});
         // update_rgn(inp);
+        updateGist(g);
     };
 
     render() {
