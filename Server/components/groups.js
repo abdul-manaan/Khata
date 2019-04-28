@@ -1,5 +1,6 @@
 const firebase_conn = require('./firebase_conn');
 const transactions = require('./transactions');
+const users = require('./users');
 
 function create_group(info) {
     // Creates a unique key in /users/
@@ -64,9 +65,23 @@ async function get_group(groupID){
     }
 }
 
+async function delete_group(groupID){
+    let groupObj = await get_group(groupID);
+
+    if(groupObj != null){
+        groupMembers = groupObj['members'];
+
+        groupMembers.forEach(uid => {
+            users.remove_group(uid,groupID);
+        })
+    }
+    firebase_conn.db.ref('groups/'+groupID).remove();
+}
+
 module.exports = {
     create_group: create_group,
     get_group_transactions: get_group_transactions,
     add_group_transactions: add_group_transactions,
-    get_group: get_group
+    get_group: get_group,
+    delete_group: delete_group,
 };
