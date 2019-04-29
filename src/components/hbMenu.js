@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import {Icon} from 'react-native-elements'
-import {profileName} from './data';
+import {CurrentUser, profileName} from './data';
 
 
 export default class HbMenu extends React.Component {
@@ -23,7 +23,7 @@ export default class HbMenu extends React.Component {
                                 <Image style={styles.img} source={require('../assets/profile.jpg')}/>
                             </View>
                             <View style={styles.profileText}>
-                                <Text style={styles.name}>{profileName}</Text>
+                                <Text style={styles.name}>{CurrentUser['profile']['name']}</Text>
                             </View>
                         </View>
                     </View>

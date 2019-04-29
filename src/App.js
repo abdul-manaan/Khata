@@ -22,6 +22,7 @@ const WIDTH = Dimensions.get('window').width;
 
 
 import Notification from './components/Notification'
+import transactionStatus from "./components/transactionStatus";
 
 const DrawerConfig = {
     initialRouteName: 'MainStack',
@@ -111,6 +112,12 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
+    TransactionStatus: {
+        screen:transactionStatus,
+        navigationOptions:{
+            header:null,
+        }
+    }
 },{headerMode: 'screen'});
 
 

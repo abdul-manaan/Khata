@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import AppBar from './AppBar'
 import {Icon} from 'react-native-elements'
+import {CurrentUser} from "./data";
 
 
 export default class Profile extends Component {
@@ -19,7 +20,7 @@ export default class Profile extends Component {
                 <Image style={styles.avatar} source={require('../assets/profile.jpg')}/>
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
-                        <Text style={styles.name}>John Doe</Text>
+                        <Text style={styles.name}>{CurrentUser['profile']['name']}</Text>
                         <Text style={styles.info}>UX Designer / Mobile developer</Text>
 
                         <View style={styles.emailContainer}>
@@ -32,7 +33,7 @@ export default class Profile extends Component {
                             </View>
                             <View style={styles.emailRow}>
                                 <View styles={styles.emailColumn}>
-                                    <Text style={styles.emailText}>salman@chutiyapa.com</Text>
+                                    <Text style={styles.emailText}>{CurrentUser['profile']['email']}</Text>
                                 </View>
                             </View>
                         </View>
@@ -46,7 +47,7 @@ export default class Profile extends Component {
                             </View>
                             <View style={styles.emailRow}>
                                 <View styles={styles.emailColumn}>
-                                    <Text style={styles.emailText}>+92-900-78601</Text>
+                                    <Text style={styles.emailText}>{CurrentUser['profile']['phone']}</Text>
                                 </View>
                             </View>
                         </View>

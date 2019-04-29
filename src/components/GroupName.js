@@ -52,11 +52,10 @@ const styles = StyleSheet.create({
         color: 'black'
     },
     confirmButton: {
-        bottom: 0,
         backgroundColor: '#aa2200',
         marginLeft: 8,
         marginRight: 8,
-        marginBottom: 20,
+        marginTop: 20,
         height: 60,
         position: 'relative',
     },

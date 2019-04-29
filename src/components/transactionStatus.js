@@ -1,19 +1,32 @@
 import React from 'react';
 import AppBar from "./AppBar";
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View,Text,ActivityIndicator} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
 import {updateGist} from "./transactionscreenflow";
+import {Icon,ListItem} from "react-native-elements";
 
 export default class newTransacrionScreen extends React.Component {
 
     state = {};
 
 
-    handleInput = (g) => {
-        //this.setState({[inp]});
-        // update_rgn(inp);
-        updateGist(g);
-    };
+    icons = {   1:{name:'check', color:'green'},
+                2:{name:'close', color:'red'},
+            }
+    listA = [
+        {
+            title: 'Usman',
+            status: 1
+        },
+        {
+            title: 'Haseeb',
+            status: 2
+        },
+        {
+            title: 'Muzammil',
+            status: 3
+        }
+    ];
 
     render() {
         return (
@@ -21,17 +34,22 @@ export default class newTransacrionScreen extends React.Component {
                 <AppBar
                     navigation={this.props.navigation}
                     title='Transaction'
-                    subtitle='Create a new transaction'/>
+                    subtitle='Status of your transaction'/>
 
-                <TextInput style={styles.textBox}
-                           placeholder="Enter gist about this transaction"
-                           onChangeText={(text) => this.handleInput(text)}
-                />
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddTransaction')}>
+                { this.listA.map((item, i) => (
+                        <ListItem style={styles.cardStyle}
+                            key={i}
+                            title={item.title}
+                            rightIcon= {this.icons[item.status] || <ActivityIndicator size="small" color="#ffb200" />}
+                    />
+                        ))}
+
+
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
                     <Card style={styles.confirmButton}>
                         <Card.Content>
-                            <Title style={{textAlign: 'center', color: 'white',}}> Next </Title>
+                            <Title style={{textAlign: 'center', color: 'white',}}> Go to Home </Title>
                         </Card.Content>
                     </Card>
                 </TouchableOpacity>
@@ -63,14 +81,19 @@ const styles = StyleSheet.create({
     cardStyle: {
         backgroundColor: 'white',
         borderBottomColor: 'blue',
-        marginTop: 15,
+        marginTop: 5,
         marginLeft: 8,
         marginRight: 8,
     },
-    textBox:{
+    textBox: {
         marginLeft: 8,
         marginRight: 8,
         marginTop: 40,
+    },
+    row:{
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        paddingVertical: 8,
     }
 
 });
