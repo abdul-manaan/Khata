@@ -55,10 +55,14 @@ const styles = StyleSheet.create({
     confirmButton: {
         bottom: 0,
         backgroundColor: '#aa2200',
-        marginLeft: 8,
-        marginRight: 8,
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 10,
         marginBottom: 20,
-        height: 60,
+        height: 45,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
         // position: 'absolute',
     },
     cardStyle: {
