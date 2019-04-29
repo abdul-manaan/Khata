@@ -30,7 +30,7 @@ var Notifications = {
 
 async function fetch_notification(userID){
     let snapshot = await db.ref('users/'+userID+'/notifications').once('value');
-    CurrentUser=get_user(userID)
+    CurrentUser=await get_user(userID);
     return snapshot.val();
 }
 
