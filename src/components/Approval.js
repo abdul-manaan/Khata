@@ -16,8 +16,7 @@ export default class Approval extends React.Component {
             <View style={styles.main}>
                 <AppBar
                     navigation={this.props.navigation}
-                    title='Transaction Approval'
-                    subtitle='Transaction Approval Details'/>
+                    title='Transaction Approval'/>
                 <ApprovalCard  navigation={this.props.navigation}/>
             </View>
         );

@@ -86,7 +86,7 @@ const addGroup = (newGroup) => {
 };
 
 let qrInfo = {
-    info: 'Muzammil Sucks'
+    info: 'Muzammil'
 };
 
 let profileName = 'Suleman Shahid';

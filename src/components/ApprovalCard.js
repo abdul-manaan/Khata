@@ -26,14 +26,14 @@ export default class ApprovalCard extends React.Component {
                             <Text>
                                 From:{"\n"}{"   "}
                                 <Text style = {{fontWeight: 'bold'}}>
-                                    {notificationToShow["transaction"]["from"]}
+                                    {notificationToShow["transaction"]["from"]}{"\n"}
                                 </Text>
                             </Text>
 
                        <Text>
                            {"\n"} To:{"\n"}{"   "}
                            <Text style = {{fontWeight: 'bold'}}>
-                               {notificationToShow["transaction"]["to"]}
+                               {notificationToShow["transaction"]["to"]}{"\n"}
                            </Text>
 
                        </Text>
@@ -41,7 +41,7 @@ export default class ApprovalCard extends React.Component {
                             <Text>
                                 {"\n"} Amount:{"\n"}{"   "}
                                 <Text style = {{fontWeight: 'bold'}}>
-                                    {notificationToShow["transaction"]["amount"]}
+                                    {notificationToShow["transaction"]["amount"]}{"\n"}
                                 </Text>
 
                             </Text>
