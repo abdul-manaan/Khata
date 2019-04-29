@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {create_user,} from './data'
-import {logo}
+
 
 export default class SignUpScreen extends Component {
 
