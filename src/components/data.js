@@ -302,6 +302,23 @@ async function add_notification(info, userID){
 }
 
 
+async function replyNotification(userID, creatorID, response){
+    let responseObj = {"userID":userID, "response":response};
+
+    let snapshot = await db.ref('users/'+creatorID+'/responseList').once('value');
+
+    if(snapshot.val() === null){
+        return db.ref('users/'+creatorID+'/responseList').set([responseObj]);
+    } else {
+        let responseList = snapshot.val();
+
+        responseList.push(responseObj);
+
+        return db.ref('users/'+creatorID+'/responseList').set(responseList);
+    }
+}
+
+
 
 /*
 * {
@@ -383,4 +400,5 @@ export {
     get_friends,
     send_notifications,
     fetch_notification,
+    replyNotification,
 };
