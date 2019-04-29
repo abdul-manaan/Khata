@@ -13,6 +13,7 @@ export default class NotificationCard extends React.Component {
     state = {notifications: []};
 
     caller = (g) => {
+        // console.log("-------------------------------------------------------------------------",g)
         updateNTS(g);
         this.props.navigation.navigate('Approval')
     };
@@ -20,7 +21,6 @@ export default class NotificationCard extends React.Component {
 
     getNotifications = async() => {
       let nots = await fetch_notification(CurrentUser['profile']['email'].hashCode());
-      console.log(nots);
       if(nots){
           this.setState({notifications: nots})
       }
