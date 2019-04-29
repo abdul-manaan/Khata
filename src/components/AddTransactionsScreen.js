@@ -27,7 +27,7 @@ export default class newTransacrionScreen extends React.Component {
         *
         * */
 
-        // send_notifications(this.transactionData);
+        send_notifications(this.transactionData);
         this.props.navigation.navigate('TransactionStatus')
     };
 
