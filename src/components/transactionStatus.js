@@ -4,58 +4,101 @@ import {StyleSheet, TouchableOpacity, View,Text,ActivityIndicator} from 'react-n
 import {Card, TextInput, Title} from 'react-native-paper';
 import {updateGist} from "./transactionscreenflow";
 import {Icon,ListItem} from "react-native-elements";
+import {auth, db} from '../config';
+import {CurrentUser} from "./data";
+import {gist,data} from "./transactionscreenflow";
+import {setState} from "theme-provider";
 
-export default class newTransacrionScreen extends React.Component {
+export default class transactionStatus extends React.Component {
 
-    state = {};
+    //state = {"listA":[]};
+    constructor(props){
+        super(props);
+        let list = [];
+        Object.keys(data).forEach(a => {list.push(data[a].to, data[a].from)})
+        let allUsers = new Set(list);
+        let listB = [];
+        allUsers.forEach(a => {
+            if(a === CurrentUser['profile']['name']){
+                listB.push({title:a, status:1})
+            }
+            else{
+                listB.push({title:a, status:3})
+            }
+        });
+        this.state = {'listA': listB};
+        //this.setState({"listA":listB});
+        console.log('Flag 1', CurrentUser);
+
+        let temp = 'users/'+CurrentUser['profile']['email'].hashCode()+'/responseList/'+gist.hashCode();
+        console.log(temp);
+        db.ref('users/'+CurrentUser['profile']['email'].hashCode()+'/responseList/'+gist.hashCode()).on('value',snapshot => {
+            console.log('Hello');
+            let responseList = snapshot.val();
+            if(responseList === null)
+                return;
+            console.log(responseList);
+            responseList.forEach(a => {
+                for (let i=0; i< listB.length; i++){
+                    if(listB[i].title === a.name){
+                        listB[i].status = a.response;
+                    }
+                }
+            });
+            this.setState({"listA":listB});
+
+        });
+
+    }
 
 
     icons = {   1:{name:'check', color:'green'},
                 2:{name:'close', color:'red'},
             }
-    listA = [
-        {
-            title: 'Usman',
-            status: 1
-        },
-        {
-            title: 'Haseeb',
-            status: 2
-        },
-        {
-            title: 'Muzammil',
-            status: 3
-        }
-    ];
-
     render() {
+        console.log(this.state.listA);
         return (
-            <View style={styles.main}>
-                <AppBar
-                    navigation={this.props.navigation}
-                    title='Transaction'
-                    subtitle='Status of your transaction'/>
+        <View style={styles.main}>
+            <AppBar
+                navigation={this.props.navigation}
+                title='Transaction'
+                subtitle='Status of your transaction'/>
 
 
-                { this.listA.map((item, i) => (
-                        <ListItem style={styles.cardStyle}
-                            key={i}
-                            title={item.title}
-                            rightIcon= {this.icons[item.status] || <ActivityIndicator size="small" color="#ffb200" />}
-                    />
-                        ))}
+            { this.state.listA.map((item, i) => (
+                <ListItem style={styles.cardStyle}
+                          key={i}
+                          title={item.title}
+                          rightIcon= {this.icons[item.status] || <ActivityIndicator size="small" color="#ffb200" />}
+                />
+            ))}
 
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-                    <Card style={styles.confirmButton}>
-                        <Card.Content>
-                            <Title style={{textAlign: 'center', color: 'white',}}> Go to Home </Title>
-                        </Card.Content>
-                    </Card>
-                </TouchableOpacity>
-            </View>
-        );
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+                <Card style={styles.confirmButton}>
+                    <Card.Content>
+                        <Title style={{textAlign: 'center', color: 'white',}}> Go to Home </Title>
+                    </Card.Content>
+                </Card>
+            </TouchableOpacity>
+        </View>
+    );
     }
+
+    // listA = [
+    //     {
+    //         title: 'Usman',
+    //         status: 1
+    //     },
+    //     {
+    //         title: 'Haseeb',
+    //         status: 2
+    //     },
+    //     {
+    //         title: 'Muzammil',
+    //         status: 3
+    //     }
+    // ];
 }
 
 

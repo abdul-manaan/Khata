@@ -12,6 +12,9 @@ let gist = '';
 let updateGist = (g) => {
     gist = g;
 }
+
+
+
 export{
     data,
     updateData,

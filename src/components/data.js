@@ -303,8 +303,9 @@ async function add_notification(info, userID){
 }
 
 
+
 async function replyNotification(userID, creatorID, transactionID,response){
-    let responseObj = {"userID":userID, "response":response};
+    let responseObj = {"userID":userID,"name": CurrentUser['profile']['name'] ,"response":response};
 
     let snapshot = await db.ref('users/'+creatorID+'/responseList/'+transactionID).once('value');
 
