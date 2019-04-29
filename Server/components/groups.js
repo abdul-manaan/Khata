@@ -65,6 +65,8 @@ async function get_group(groupID){
     }
 }
 
+
+
 async function delete_group(groupID){
     let groupObj = await get_group(groupID);
 
@@ -78,10 +80,40 @@ async function delete_group(groupID){
     firebase_conn.db.ref('groups/'+groupID).remove();
 }
 
+async function leave_group(userID, groupID){
+    let snapshot = await firebase_conn.db.ref("groups/"+groupID+'/members').once('value');
+    if(snapshot.val() === null)
+        return;
+    else {
+        let memberList = snapshot.val();
+
+        if(memberList.indexOf(userID) != -1){
+            let newList = memberList.filter(ele => {
+                return ele != userID;
+            });
+            firebase_conn.db.ref('groups/'+groupID+'/members').set(newList);
+
+            let snap = await firebase_conn.db.ref('users/'+userID+'groups').once('value');
+
+            if(snap.val() === null){
+                return;
+            } else {
+                let userList = snap.val();
+                userList = userList.filter(g => {
+                    return g != groupID;
+                });
+
+                return firebase_conn.db.ref('users/'+userID+'/groups').set(userList);
+            }
+        }
+    }
+}
+
 module.exports = {
     create_group: create_group,
     get_group_transactions: get_group_transactions,
     add_group_transactions: add_group_transactions,
     get_group: get_group,
     delete_group: delete_group,
+    leave_group: leave_group,
 };

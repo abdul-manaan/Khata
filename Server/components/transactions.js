@@ -10,7 +10,7 @@ function create_transaction(info){
     let transactionData = {
         "to": info['to'],
         "from": info['from'],
-        "status": info['status'],
+        "status": info['status'] || "pending",
         "amount": info['amount']
     };
 

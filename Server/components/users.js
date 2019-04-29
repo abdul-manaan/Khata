@@ -33,10 +33,9 @@ async function create_user(info) {
     }
 
     firebase_conn.db.ref('users/' + unique_id).set(userData);
-    firebase_conn.db.ref('users/'+unique_id+'/profile/notification').on('value', snap => {
-        console.log(`user${unique_id} notifications changed! :${snap.val()}`);
-    });
-    //console.log(imageRef);
+    //firebase_conn.db.ref('users/'+unique_id+'/notification').on('value', snap => {
+    //    console.log(`user${unique_id} notifications changed! :${snap.val()}`);
+    //});
 
 
 
@@ -189,6 +188,23 @@ async function remove_group(userID, groupID){
     firebase_conn.db.ref('users/'+userID+'/groups').set(updatedList);
 }
 
+
+async function replyNotification(userID, creatorID, response){
+    let responseObj = {"userID":userID, "response":response};
+
+    let snapshot = await firebase_conn.db.ref('users/'+creatorID+'/responseList').once('value');
+
+    if(snapshot.val() === null){
+        return firebase_conn.db.ref('users/'+creatorID+'/responseList').set([responseObj]);
+    } else {
+        let responseList = snapshot.val();
+
+        responseList.push(responseObj);
+
+        return firebase_conn.db.ref('users/'+creatorID+'/responseList').set(responseList);
+    }
+}
+
 module.exports = {
     create_user: create_user,
     add_friend: add_friend,
@@ -201,4 +217,6 @@ module.exports = {
     addString: addString,
     add_user_to_group: add_user_to_group,
     remove_group: remove_group,
+    replyNotification: replyNotification,
 };
+
