@@ -30,6 +30,7 @@ var Notifications = {
 
 async function fetch_notification(userID){
     let snapshot = await db.ref('users/'+userID+'/notifications').once('value');
+    CurrentUser=get_user(userID)
     return snapshot.val();
 }
 
@@ -302,19 +303,19 @@ async function add_notification(info, userID){
 }
 
 
-async function replyNotification(userID, creatorID, response){
+async function replyNotification(userID, creatorID, transactionID,response){
     let responseObj = {"userID":userID, "response":response};
 
-    let snapshot = await db.ref('users/'+creatorID+'/responseList').once('value');
+    let snapshot = await db.ref('users/'+creatorID+'/responseList/'+transactionID).once('value');
 
     if(snapshot.val() === null){
-        return db.ref('users/'+creatorID+'/responseList').set([responseObj]);
+        return db.ref('users/'+creatorID+'/responseList/'+transactionID).set([responseObj]);
     } else {
         let responseList = snapshot.val();
 
         responseList.push(responseObj);
 
-        return db.ref('users/'+creatorID+'/responseList').set(responseList);
+        return db.ref('users/'+creatorID+'/responseList/'+transactionID).set(responseList);
     }
 }
 

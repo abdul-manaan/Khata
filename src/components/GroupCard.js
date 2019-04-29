@@ -53,11 +53,7 @@ export default class GroupCard extends React.Component {
             );
         } else {
             return(
-                    <Card>
-                        <Card.Content>
-                            <Title> No Information </Title>
-                        </Card.Content>
-                    </Card>
+                    <View></View>
             );
         }
 
