@@ -10,7 +10,7 @@ export default class ApprovalCard extends React.Component {
 
 
     onClickListener = (data) => {
-        replyNotification(CurrentUser['profile']['email'].hashCode(),notificationToShow['creatorID'],data);
+        replyNotification(CurrentUser['profile']['email'].hashCode(),notificationToShow['creatorID'],notificationToShow['title'].hashCode(),data);
         this.props.navigation.navigate('Home');
     }
 
