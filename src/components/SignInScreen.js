@@ -9,8 +9,8 @@ export default class SignInScreen extends Component {
     constructor(props) {
         super();
         this.state = {
-            phone: 'admin@live.com',
-            password: '123456',
+            phone: '',
+            password: '',
         }
     }
 

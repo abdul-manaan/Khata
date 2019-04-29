@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {create_user,} from './data'
+import {logo}
 
 export default class SignUpScreen extends Component {
 
@@ -21,8 +22,8 @@ export default class SignUpScreen extends Component {
 
 
                 <View style={styles.logo}>
-                    <Image style={styles.inputIcon}
-                           source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+                    <Image style={styles.logoIcon}
+                           source={require('../assets/logo.png')}/>
                 </View>
 
                 <View style={styles.inputContainer}>
