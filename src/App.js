@@ -20,7 +20,6 @@ import SplashScreen from './components/SplashScreen'
 import QRScannerScreen from './components/QRScannerScreen'
 import oldTransactionsScreen from './components/oldTransactionsScreen'
 
-
 const WIDTH = Dimensions.get('window').width;
 
 

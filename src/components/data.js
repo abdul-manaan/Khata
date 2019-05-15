@@ -296,17 +296,34 @@ function add_transaction(userID, transactionID) {
     })
 }
 
-
+async function get_transaction(tID) {
+    let snapshot = await db.ref('users/' + tID).once('value');
+    let result = snapshot.val();
+    // console.log(result);
+    if (result === null) {
+        // console.log('User doesnt exist');
+        return null;
+    } else {
+        return result;
+    }
+}
 
 
 function get_group_transactions(groupID) {
-    return db.ref(`groups/${groupID}/transactions`).once('value').then(snapshot => {
+    return db.ref(`groups/${groupID.hashCode()}/transactions`).once('value').then(snapshot => {
         if (snapshot.val() === null) {
         } else {
             let transactionList = snapshot.val();
+            let temp = [];
 
+            Object.values(transactionList).forEach(t => {
+                let lit = {};
+                lit['title'] = t['title'];
+                lit['trans'] = Object.values(t['transactions']);
+                temp.push(lit);
+            });
 
-            return transactionList;
+            return temp;
         }
     })
 }
@@ -473,4 +490,5 @@ export {
     add_group_transactions,
     hashify,
     add_friend,
+    get_transaction,
 };
