@@ -17,7 +17,7 @@ import DebitCreditScreen from './components/DebitCreditScreen'
 import DebitScreen from './components/DebitScreen'
 import CreditScreen from './components/CreditScreen'
 import SplashScreen from './components/SplashScreen'
-
+import QRScannerScreen from './components/QRScannerScreen'
 import oldTransactionsScreen from './components/oldTransactionsScreen'
 
 
@@ -58,6 +58,14 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
+
+    ScanQR: {
+        screen: QRScannerScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
     GroupName: {
         screen: GroupName,
         navigationOptions: {

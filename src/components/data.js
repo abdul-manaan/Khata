@@ -427,6 +427,26 @@ let get_Current_user = async () => {
 let encryptEmail = (em) => {
     return em.hashCode()
 };
+
+
+function add_friend(userID, friendID) {
+    return db.ref(`users/${userID}/friends_list`).once('value').then(snapshot => {
+        if (snapshot.val() === null) {
+            db.ref(`users/${userID}/friends_list/`).set([friendID]);
+        } else {
+
+            let friendsList = snapshot.val();
+            if (friendsList.includes(friendID)) {
+                console.log(`${userID} is already friends with ${friendID}`);
+                return;
+            }
+            friendsList.push(friendID);
+            db.ref(`users/${userID}/friends_list/`).set(friendsList);
+
+        }
+    })
+
+}
 export {
     recent_group_name,
     update_rgn,
@@ -452,4 +472,5 @@ export {
     replyNotification,
     add_group_transactions,
     hashify,
+    add_friend,
 };
