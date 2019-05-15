@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import {Icon} from 'react-native-elements'
+import Icons from 'react-native-vector-icons/AntDesign'
 import {CurrentUser, profileName} from './data';
 
 
@@ -54,7 +55,7 @@ export default class HbMenu extends React.Component {
                             {this.navLink('QR', 'Generate QR Code')}
                         </View>
                         <View style={styles.sideLink}>
-                            <Icon name='ac-unit' color='#aa2200' size={35}/>
+                            <Icons name='creditcard' color='#aa2200' size={35}/>
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('DebitCreditScreen', 'Debit/Credit')}
                         </View>
