@@ -10,7 +10,7 @@ export default class Notification extends React.Component {
     render() {
         return (
             <View style={styles.main}>
-                <AppBar navigation={this.props.navigation} title='Notifications' subtitle='Your Notifications'/>
+                <AppBar navigation={this.props.navigation} title='Notifications'/>
                 <ScrollView>
                     <NotificationCard navigation={this.props.navigation}/>
                 </ScrollView>

@@ -13,6 +13,7 @@ export default class NotificationCard extends React.Component {
     state = {notifications: []};
 
     caller = (g) => {
+        // console.log("-------------------------------------------------------------------------",g)
         updateNTS(g);
         this.props.navigation.navigate('Approval')
     };
@@ -20,7 +21,6 @@ export default class NotificationCard extends React.Component {
 
     getNotifications = async() => {
       let nots = await fetch_notification(CurrentUser['profile']['email'].hashCode());
-      console.log(nots);
       if(nots){
           this.setState({notifications: nots})
       }
@@ -33,13 +33,13 @@ export default class NotificationCard extends React.Component {
             return this.state.notifications.map(g =>
                 <Card onPress={() => this.caller(g)} style={styles.cardStyle}>
                     <Card.Content>
-                        <Title style={{fontSize: 16}}> {g.creator + " created a transaction with you"}</Title>
-                        <View style={{flexDirection: 'row'}}>
-                            {<Text style={{color: 'white'}}>Hell</Text>}
-                            <Title style={{fontSize: 14}}>{g.title}</Title>
-                            {<Text style={{color: 'white'}}>Hell</Text>}
-                            <Text style={{fontSize: 20}}>{g.time}</Text>
-                        </View>
+                        <Title style={{fontSize: 18}}> {g.creator + " created a transaction with you"}</Title>
+
+
+                            <Text style={{fontSize: 15}}>{"   "}{g.title}</Text>
+
+                            <Text style={{fontSize: 12 }}>{"\n   "}{g.time}</Text>
+
                     </Card.Content>
                 </Card>
             );

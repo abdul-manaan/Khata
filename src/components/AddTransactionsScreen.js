@@ -4,8 +4,8 @@ import {StyleSheet, TouchableOpacity, View,ScrollView} from 'react-native';
 import {Card, FAB, TextInput, Title} from 'react-native-paper';
 import TransactionCard from "./TransactionCard";
 import {groupToShow} from "./groupscreensflow";
-import {data, gist} from './transactionscreenflow';
-import {send_notifications} from './data'
+import {data, gist, updateCurrentTransaction} from './transactionscreenflow';
+import {CurrentUser, send_notifications, hashify} from './data'
 
 export default class newTransacrionScreen extends React.Component {
 
@@ -26,9 +26,28 @@ export default class newTransacrionScreen extends React.Component {
         * }
         *
         * */
+        let today = new Date();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let temp = {};
+        temp["creator"] = CurrentUser['profile']['name'];
+        temp["creatorID"] = hashify(CurrentUser['profile']['email']);
+        temp['time'] = time ;
+        temp['transaction'] = data;
+        temp['title'] = gist;
+        if(!groupToShow){
+            temp['groupID'] = 'unknown'
+           // console.log(groupToShow, ' Thererere')
+        }
+        else{
+            temp['groupID'] = hashify(groupToShow['name']);
+        }
+
+        updateCurrentTransaction(temp);
+
+
 
         send_notifications(this.transactionData);
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('TransactionStatus')
     };
 
 

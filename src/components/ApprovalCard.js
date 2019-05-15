@@ -1,13 +1,18 @@
 import React from 'react';
 import {StyleSheet, TouchableHighlight, View} from 'react-native';
 import {Card, Text} from 'react-native-paper'
-import {Notifications} from "./data"
+import {replyNotification,CurrentUser} from "./data"
 import {notificationToShow} from './notificationsscreenflow'
 
 
 export default class ApprovalCard extends React.Component {
     state = {amount: 0,to:'',from:''};
 
+
+    onClickListener = (data) => {
+        replyNotification(CurrentUser['profile']['email'].hashCode(),notificationToShow['creatorID'],notificationToShow['title'].hashCode(),data);
+        this.props.navigation.navigate('Home');
+    }
 
     handleInput = (text) => {
         this.setState({amount: text})
@@ -21,14 +26,14 @@ export default class ApprovalCard extends React.Component {
                             <Text>
                                 From:{"\n"}{"   "}
                                 <Text style = {{fontWeight: 'bold'}}>
-                                    {notificationToShow["Transaction"]["From"]}
+                                    {notificationToShow["transaction"]["from"]}{"\n"}
                                 </Text>
                             </Text>
 
                        <Text>
                            {"\n"} To:{"\n"}{"   "}
                            <Text style = {{fontWeight: 'bold'}}>
-                               {notificationToShow["Transaction"]["To"]}
+                               {notificationToShow["transaction"]["to"]}{"\n"}
                            </Text>
 
                        </Text>
@@ -36,7 +41,7 @@ export default class ApprovalCard extends React.Component {
                             <Text>
                                 {"\n"} Amount:{"\n"}{"   "}
                                 <Text style = {{fontWeight: 'bold'}}>
-                                    {notificationToShow["Transaction"]["Amount"]}
+                                    {notificationToShow["transaction"]["amount"]}{"\n"}
                                 </Text>
 
                             </Text>
@@ -49,12 +54,12 @@ export default class ApprovalCard extends React.Component {
                 <View style = {{alignItems: 'center'}}>
 
                 <TouchableHighlight style={[styles.buttonContainer, styles.loginButton] }
-                                    onPress={() => this.onClickListener()}>
+                                    onPress={() => this.onClickListener(1)}>
                     <Text style={{color : "white"}}>Approve</Text>
                 </TouchableHighlight>
 
                     <TouchableHighlight style={[styles.buttonContainer, styles.loginButton1]}
-                                        onPress={() => this.onClickListener()}>
+                                        onPress={() => this.onClickListener(2)}>
                         <Text style={{color : "white"}}>Reject</Text>
                     </TouchableHighlight>
                 </View>

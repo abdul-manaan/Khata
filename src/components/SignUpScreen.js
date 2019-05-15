@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {create_user,} from './data'
 
+
 export default class SignUpScreen extends Component {
 
     state = {
@@ -21,8 +22,8 @@ export default class SignUpScreen extends Component {
 
 
                 <View style={styles.logo}>
-                    <Image style={styles.inputIcon}
-                           source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+                    <Image style={styles.logoIcon}
+                           source={require('../assets/logo.png')}/>
                 </View>
 
                 <View style={styles.inputContainer}>
@@ -63,10 +64,10 @@ export default class SignUpScreen extends Component {
                 <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]}
                                     onPress={() => {
                                         if (this.state.password.length < 6) {
-                                            alert('Gaand na mra');
+                                            alert('Enter password with more than 6 characters');
                                         } else {
                                             create_user(this.state);
-                                            this.props.navigation.navigate('SignIn')
+                                            this.props.navigation.navigate('EmailConfirmationScreen')
                                         }
                                     }}>
                     <Text style={styles.loginText}>Enter</Text>
@@ -134,5 +135,10 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: 'white',
-    }
+    },
+    logoIcon: {
+        width: 150,
+        height: 150,
+        justifyContent: 'center'
+    },
 });

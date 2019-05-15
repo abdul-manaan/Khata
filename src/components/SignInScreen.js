@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import {signin} from './data';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Icon} from 'react-native-elements'
+import {Entypo} from 'react-native-vector-icons/Entypo';
 
 export default class SignInScreen extends Component {
 
     constructor(props) {
         super();
         this.state = {
-            phone: 'admin@live.com',
-            password: '123456',
+            phone: '20100192@lums.edu.pk',
+            password: '1234567890',
         }
     }
 
@@ -17,7 +19,7 @@ export default class SignInScreen extends Component {
             this.props.navigation.navigate('Home');
             return 0;
         } else {
-            Alert.alert("Phone or password incorrect");
+            Alert.alert("Email or password incorrect");
             return 1;
         }
     };
@@ -28,13 +30,12 @@ export default class SignInScreen extends Component {
 
 
                 <View style={styles.logo}>
-                    <Image style={styles.inputIcon}
-                           source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+                    <Image style={styles.logoIcon}
+                           source={require('../assets/logo.png')}/>
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon}
-                           source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+                    <Icon name="mail" color={"#aa0022"} marginLeft={15}/>
                     <TextInput style={styles.inputs}
                                placeholder="Email Address"
                                keyboardType="email-address"
@@ -43,8 +44,7 @@ export default class SignInScreen extends Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon}
-                           source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+                    <Icon  name="lock" color={"#aa0022"} marginLeft={15}/>
                     <TextInput style={styles.inputs}
                                placeholder="Password"
                                secureTextEntry={true}
@@ -102,6 +102,11 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         justifyContent: 'center'
     },
+    logoIcon: {
+        width: 150,
+        height: 150,
+        justifyContent: 'center'
+    },
     buttonContainer: {
         height: 45,
         flexDirection: 'row',
@@ -124,11 +129,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#9b0000",
     },
     logo: {
-        marginTop: 100,
+        marginTop: 70,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        bottom: 50,
+        marginBottom: 35,
     },
     loginText: {
         color: 'white',

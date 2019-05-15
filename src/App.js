@@ -13,8 +13,11 @@ import AddTransactionsScreen from './components/AddTransactionsScreen'
 import GroupInfoScreen from './components/GroupInfoScreen'
 import ProfileScreen from './components/ProfileScreen'
 import Approval from './components/Approval'
-
-
+import DebitCreditScreen from './components/DebitCreditScreen'
+import DebitScreen from './components/DebitScreen'
+import CreditScreen from './components/CreditScreen'
+import SplashScreen from './components/SplashScreen'
+import QRScannerScreen from './components/QRScannerScreen'
 import oldTransactionsScreen from './components/oldTransactionsScreen'
 
 
@@ -22,6 +25,9 @@ const WIDTH = Dimensions.get('window').width;
 
 
 import Notification from './components/Notification'
+import transactionStatus from "./components/transactionStatus";
+import EmailConfirmationScreen from "./components/EmailConfirmationScreen";
+import friendListScreen from "./components/friendListScreen";
 
 const DrawerConfig = {
     initialRouteName: 'MainStack',
@@ -53,6 +59,21 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
+
+    FriendsList: {
+        screen: friendListScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
+    ScanQR: {
+        screen: QRScannerScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
     GroupName: {
         screen: GroupName,
         navigationOptions: {
@@ -66,9 +87,6 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
-
-
-
 
     newTransactions: {
         screen: newTransactionScreen,
@@ -111,6 +129,32 @@ export const MainStack = createStackNavigator({
             header: null,
         }
     },
+    TransactionStatus: {
+        screen:transactionStatus,
+        navigationOptions:{
+            header:null,
+        }
+    },
+    DebitCreditScreen: {
+        screen:DebitCreditScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    DebitScreen:{
+        screen:DebitScreen,
+        navigationOptions : {
+            header: null,
+        },
+    },
+    CreditScreen:{
+        screen:CreditScreen,
+        navigationOptions : {
+            header: null,
+        },
+    },
+
+
 },{headerMode: 'screen'});
 
 
@@ -122,6 +166,12 @@ export const Drawer = createDrawerNavigator({
 
 
 export const MainNavigator = createStackNavigator({
+    SplashScreen:{
+      screen:SplashScreen,
+      navigationOptions:{
+          header: null,
+      },
+    },
     SignIn: {
         screen: SignInScreen,
         navigationOptions: {
@@ -134,7 +184,12 @@ export const MainNavigator = createStackNavigator({
             header: null,
         }
     },
-
+    EmailConfirmationScreen: {
+        screen:EmailConfirmationScreen,
+        navigationOptions:{
+            header:null,
+        }
+    },
     Drawer: {
         screen: Drawer,
         navigationOptions: {

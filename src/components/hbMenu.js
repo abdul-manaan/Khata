@@ -1,7 +1,8 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import {Icon} from 'react-native-elements'
-import {profileName} from './data';
+import Icons from 'react-native-vector-icons/AntDesign'
+import {CurrentUser, profileName} from './data';
 
 
 export default class HbMenu extends React.Component {
@@ -23,7 +24,7 @@ export default class HbMenu extends React.Component {
                                 <Image style={styles.img} source={require('../assets/profile.jpg')}/>
                             </View>
                             <View style={styles.profileText}>
-                                <Text style={styles.name}>{profileName}</Text>
+                                <Text style={styles.name}>{CurrentUser['profile']['name']}</Text>
                             </View>
                         </View>
                     </View>
@@ -34,7 +35,7 @@ export default class HbMenu extends React.Component {
                             {this.navLink('Home', 'Home')}
                         </View>
                         <View style={styles.sideLink}>
-                            <Icon name='ac-unit' color='#aa2200' size={35}/>
+                            <Icon name='notifications' color='#aa2200' size={35}/>
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('Notification', 'Notifications')}
                         </View>
@@ -42,6 +43,11 @@ export default class HbMenu extends React.Component {
                             <Icon name='person' color='#aa2200' size={35}/>
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('Profile', 'Profile')}
+                        </View>
+                        <View style={styles.sideLink}>
+                            <Icon name='favorite' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
+                            {this.navLink('FriendsList', 'Buddies')}
                         </View>
                         <View style={styles.sideLink}>
                             <Icon name='add-a-photo' color='#aa2200' size={35}/>
@@ -53,6 +59,12 @@ export default class HbMenu extends React.Component {
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('QR', 'Generate QR Code')}
                         </View>
+                        <View style={styles.sideLink}>
+                            <Icons name='creditcard' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
+                            {this.navLink('DebitCreditScreen', 'Debit/Credit')}
+                        </View>
+
                         {/*<View style={styles.sideLink}>*/}
                         {/*    <Icon name='ac-unit' color='#aa2200' size={35}/>*/}
                         {/*    <Text style={{color: 'white'}}>ll</Text>*/}
@@ -114,7 +126,7 @@ const styles = StyleSheet.create({
     bottomLinks: {
         flex: 1,
         backgroundColor: 'white',
-        paddingTop: 10,
+        paddingTop: 0,
         paddingBottom: 450,
     },
     link: {

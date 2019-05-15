@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import QRCode from 'react-native-qrcode';
-
+import AppBar from "./AppBar";
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 
 export default class QR_Code extends Component {
     constructor(props) {
@@ -13,7 +14,11 @@ export default class QR_Code extends Component {
 
     render() {
         return (
-            <QRCode value={this.state.content} size={250}/>
+            <View>
+                <AppBar navigation={this.props.navigation} title='QR for making friends' subtitle='Ask buddies to scan it'/>
+                <QRCode value={this.state.content} size={250}/>
+            </View>
+
         );
     }
 }

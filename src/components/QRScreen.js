@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import QR_Code from './QR_Code';
 import {Card} from "react-native-paper";
 import {StyleSheet, View} from "react-native";
-import {qrInfo} from './data'
+import {CurrentUser} from './data'
+
 
 
 export default class QRScreen extends Component {
@@ -11,7 +12,7 @@ export default class QRScreen extends Component {
             <View style={styles.main}>
                 <Card style={{backgroundColor: 'white'}}>
                     <Card.Content>
-                        <QR_Code display='Scan this for getting into group' content={JSON.stringify(qrInfo)}/>
+                        <QR_Code display='Scan this for getting into group' content={JSON.stringify(CurrentUser['profile']['email'].hashCode())}/>
                     </Card.Content>
                 </Card>
             </View>
