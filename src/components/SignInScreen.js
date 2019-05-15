@@ -9,8 +9,8 @@ export default class SignInScreen extends Component {
     constructor(props) {
         super();
         this.state = {
-            phone: '',
-            password: '',
+            phone: '20100192@lums.edu.pk',
+            password: '1234567890',
         }
     }
 
@@ -19,7 +19,7 @@ export default class SignInScreen extends Component {
             this.props.navigation.navigate('Home');
             return 0;
         } else {
-            Alert.alert("Phone or password incorrect");
+            Alert.alert("Email or password incorrect");
             return 1;
         }
     };
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     logoIcon: {
-        width: 100,
-        height: 100,
+        width: 150,
+        height: 150,
         justifyContent: 'center'
     },
     buttonContainer: {
