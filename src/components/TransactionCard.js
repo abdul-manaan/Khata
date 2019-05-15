@@ -9,7 +9,11 @@ import {updateData} from "./transactionscreenflow";
 export default class TransactionCard extends React.Component {
     state = {
         mems: currentGroupMembers,
-        amount: 0,to:'',from:'', toEm: '', fromEm: '',
+        amount: 0,
+        to:'',
+        from:'',
+        toEm: '',
+        fromEm: '',
     };
 
 
@@ -66,6 +70,7 @@ export default class TransactionCard extends React.Component {
                                    label= "Amount (Rs.)"
                                    onChangeText={(text) => {
                                        this.handleInput(text);
+                                       this.state.amount = text;
                                        updateData({[this.props.id]: {'to': this.state.to, 'from': this.state.from, 'amount': this.state.amount, 'toEm': mapping[this.state.to], 'fromEm': mapping[this.state.from]}});
                                    }}
                                    value={this.state.amount}

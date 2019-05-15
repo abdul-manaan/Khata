@@ -5,7 +5,10 @@ let updateData = (part) => {
     *   1: {to: '', from: '', amount: '', toEm: '', fromEm: ''}
     * }
     * */
-    data[Object.keys(part)[0]] = part[Object.keys(part)[0]]
+    console.log(part, ' its part');
+
+    data[Object.keys(part)[0]] = part[Object.keys(part)[0]];
+    console.log(data, ' its data')
 };
 
 let gist = '';
@@ -28,6 +31,7 @@ let updateGist = (g) => {
 * */
 let CurrentTransaction = {};
 let updateCurrentTransaction = (t) => {
+
     CurrentTransaction = t;
 };
 

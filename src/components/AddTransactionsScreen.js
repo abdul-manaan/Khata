@@ -41,7 +41,9 @@ export default class newTransacrionScreen extends React.Component {
         else{
             temp['groupID'] = hashify(groupToShow['name']);
         }
+
         updateCurrentTransaction(temp);
+
 
 
         send_notifications(this.transactionData);
