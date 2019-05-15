@@ -112,7 +112,10 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
-
+let hashify = (str) => {
+   // console.log(str, " hereere");
+    return str.toString().hashCode();
+};
 
 
 let CurrentUser = {};
@@ -227,29 +230,73 @@ async function create_user(info) {
     db.ref('users/' + unique_id).set(userData);
     auth.createUserWithEmailAndPassword(userProfile['email'], userProfile['password']);
 }
+function add_group_transactions(groupID,info){
+    if(info === undefined)
+        return;
+    let unique_id = db.ref().child(`groups/${groupID}/transactions`).push().key;
 
-//
-// function add_group_transactions(groupID,info){
-//     if(info === undefined)
-//         return;
-//     let unique_id = firebase_conn.db.ref().child(`groups/${groupID}/transactions`).push().key;
-//
-//     let tidList = [];
-//
-//     info['list'].forEach(trans => {
-//         let tid = transactions.create_transaction({"to":trans['to'],"from":trans['from'],'status':true,'amount':trans['amount']});
-//         tidList.push(tid);
-//     });
-//
-//     let groupTransactionData = {
-//         "creator_id": info['creator_id'],
-//         "time":info['time'] || 0,
-//         "description":info['description'],
-//         "transactions":tidList,
-//     };
-//
-//     return firebase_conn.db.ref(`groups/${groupID}/transactions/${unique_id}`).set(groupTransactionData);
-// }
+    let tidList = [];
+    let IT = info['transaction'];
+
+    Object.keys(info['transaction']).forEach(key => {
+        let tid = create_transaction({"to":IT[key]['toEm'].hashCode(),"from":IT[key]['fromEm'].hashCode(),'status':true,'amount':IT[key]['amount']});
+        tidList.push(tid);
+    });
+
+    let groupTransactionData = {
+        "creatorID": info['creatorID'],
+        "time":info['time'] || 0,
+        "title":info['title'],
+        "transactions":tidList,
+    };
+
+    return db.ref(`groups/${groupID}/transactions/${unique_id}`).set(groupTransactionData);
+}
+
+function create_transaction(info){
+    if(info === null)
+        return;
+
+    let unique_id = db.ref().child('transactions').push().key;
+
+    let transactionData = {
+        "to": info['to'],
+        "from": info['from'],
+        "status": info['status'] || "pending",
+        "amount": info['amount']
+    };
+
+    // Add transaction to transaction database
+    db.ref('transactions/' + unique_id).set(transactionData);
+
+    // Add transaction to each users transactions list
+    add_transaction(info['to'],unique_id);
+    add_transaction(info['from'],unique_id);
+
+    return unique_id;
+}
+
+
+
+function add_transaction(userID, transactionID) {
+    return db.ref(`users/${userID}/transaction_history/`).once('value').then(snapshot => {
+        if (snapshot.val() === null) {
+            db.ref(`users/${userID}/transaction_history/`).set([transactionID]);
+        } else {
+            let transactionList = snapshot.val();
+
+            if (transactionList.includes(transactionID)) {
+                // console.log(`${transactionID} already exists for user ${userID}`);
+                return;
+            }
+
+            transactionList.push(transactionID);
+            db.ref(`users/${userID}/transaction_history/`).set(transactionList);
+        }
+    })
+}
+
+
 
 
 function get_group_transactions(groupID) {
@@ -403,4 +450,6 @@ export {
     send_notifications,
     fetch_notification,
     replyNotification,
+    add_group_transactions,
+    hashify,
 };

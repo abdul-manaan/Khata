@@ -1,8 +1,6 @@
 import React from 'react';
-import AppBar from "./AppBar";
 import {Image, StyleSheet, TouchableHighlight, TouchableOpacity, View} from 'react-native';
 import {Card, TextInput, Button} from 'react-native-paper';
-import {update_rgn} from "./data";
 import { Text} from "react-native-elements";
 
 export default class GroupName extends React.Component {

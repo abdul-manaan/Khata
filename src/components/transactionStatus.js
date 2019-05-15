@@ -5,8 +5,8 @@ import {Card, TextInput, Title} from 'react-native-paper';
 import {updateGist} from "./transactionscreenflow";
 import {Icon,ListItem} from "react-native-elements";
 import {auth, db} from '../config';
-import {CurrentUser} from "./data";
-import {gist,data} from "./transactionscreenflow";
+import {CurrentUser, add_group_transactions} from "./data";
+import {gist,data, CurrentTransaction} from "./transactionscreenflow";
 import {setState} from "theme-provider";
 
 export default class transactionStatus extends React.Component {
@@ -15,17 +15,19 @@ export default class transactionStatus extends React.Component {
     constructor(props){
         super(props);
         let list = [];
-        Object.keys(data).forEach(a => {list.push(data[a].to, data[a].from)})
+        Object.keys(data).forEach(a => {list.push(data[a].to, data[a].from)});
+
         let allUsers = new Set(list);
         let listB = [];
         allUsers.forEach(a => {
             if(a === CurrentUser['profile']['name']){
-                listB.push({title:a, status:1})
+                listB.push({title:a, status:1,})
             }
             else{
                 listB.push({title:a, status:3})
             }
         });
+
         this.state = {'listA': listB};
         //this.setState({"listA":listB});
         console.log('Flag 1', CurrentUser);
@@ -45,6 +47,28 @@ export default class transactionStatus extends React.Component {
                     }
                 }
             });
+
+            let ok = 1;
+            listB.forEach(l => {
+                if(l['status'] !== 1){
+                    ok = 0
+                }
+            });
+
+            if(ok){
+                //groupID
+                //{
+                //  'creator_id'
+                //  'time',
+                //  'description',
+                //  'list': {
+                //      1: {to: , from: , status: , amount: ,}
+                //   }
+                // }
+
+                add_group_transactions(CurrentTransaction['groupID'], CurrentTransaction)
+            }
+
             this.setState({"listA":listB});
 
         });
@@ -54,7 +78,7 @@ export default class transactionStatus extends React.Component {
 
     icons = {   1:{name:'check', color:'green'},
                 2:{name:'close', color:'red'},
-            }
+            };
     render() {
         console.log(this.state.listA);
         return (
@@ -84,6 +108,7 @@ export default class transactionStatus extends React.Component {
         </View>
     );
     }
+
 
     // listA = [
     //     {

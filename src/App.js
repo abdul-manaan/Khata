@@ -137,12 +137,7 @@ export const MainStack = createStackNavigator({
             header: null,
         },
     },
-    EmailConfirmationScreen: {
-        screen:EmailConfirmationScreen,
-        navigationOptions:{
-            header:null,
-        }
-    },
+
 
 },{headerMode: 'screen'});
 
