@@ -45,6 +45,11 @@ export default class HbMenu extends React.Component {
                             {this.navLink('Profile', 'Profile')}
                         </View>
                         <View style={styles.sideLink}>
+                            <Icon name='favorite' color='#aa2200' size={35}/>
+                            <Text style={{color: 'white'}}>ll</Text>
+                            {this.navLink('FriendsList', 'Buddies')}
+                        </View>
+                        <View style={styles.sideLink}>
                             <Icon name='add-a-photo' color='#aa2200' size={35}/>
                             <Text style={{color: 'white'}}>ll</Text>
                             {this.navLink('ScanQR', 'Scan QR Code')}

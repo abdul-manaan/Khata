@@ -5,10 +5,12 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
+    View,
    // Linking,
 } from 'react-native';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import AppBar from "./AppBar";
 
 export default class QRScannerScreen extends Component {
     onSuccess = (e) => {
@@ -20,25 +22,23 @@ export default class QRScannerScreen extends Component {
         console.log('me: ',me);
         add_friend(me , e.data);
         add_friend(e.data, me);
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('FriendsList');
         alert("You made a new friend!")
     };
 
     render() {
         return (
-            <QRCodeScanner
-                onRead={this.onSuccess}
-                topContent={
-                    <Text style={styles.centerText}>
-                        Scan this and make friends
-                    </Text>
-                }
-                bottomContent={
-                    <TouchableOpacity style={styles.buttonTouchable}>
-                        <Text style={styles.buttonText}>OK. Got it!</Text>
-                    </TouchableOpacity>
-                }
-            />
+            <View>
+                <AppBar navigation={this.props.navigation} title='QR for making friends' subtitle='Ask buddies to scan it'/>
+                <QRCodeScanner
+                    onRead={this.onSuccess}
+                    topContent={
+                        <Text style={styles.centerText}>
+                            Scan this and make friends
+                        </Text>
+                    }
+                />
+            </View>
         );
     }
 }

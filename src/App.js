@@ -27,6 +27,7 @@ const WIDTH = Dimensions.get('window').width;
 import Notification from './components/Notification'
 import transactionStatus from "./components/transactionStatus";
 import EmailConfirmationScreen from "./components/EmailConfirmationScreen";
+import friendListScreen from "./components/friendListScreen";
 
 const DrawerConfig = {
     initialRouteName: 'MainStack',
@@ -54,6 +55,13 @@ export const MainStack = createStackNavigator({
 
     QR: {
         screen: QRScreen,
+        navigationOptions: {
+            header: null,
+        }
+    },
+
+    FriendsList: {
+        screen: friendListScreen,
         navigationOptions: {
             header: null,
         }
