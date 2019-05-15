@@ -3,7 +3,7 @@ import {Image, StyleSheet, TouchableHighlight, TouchableOpacity, View} from 'rea
 import {Card, TextInput, Button} from 'react-native-paper';
 import { Text} from "react-native-elements";
 
-export default class GroupName extends React.Component {
+export default class ForgotPassword extends React.Component {
 
     state = {};
 
