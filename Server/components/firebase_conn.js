@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 const fb_store =  require('firebase/storage');
-const
+//const
 
 var config = {
     apiKey: "AIzaSyCdJblpchZ5VZfV9CdzF72PlH5Myl29RUs",

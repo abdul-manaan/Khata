@@ -1,4 +1,5 @@
 const firebase_conn = require('./firebase_conn');
+const transactions = require('./transactions');
 
 
 
@@ -23,6 +24,7 @@ async function create_user(info) {
         "payables": [],
         "recievables": []
     };
+
     let unique_id = userProfile['email'].hashCode();
 
     let snapshot = await  firebase_conn.db.ref('users/'+unique_id).once('value');
@@ -42,6 +44,50 @@ async function create_user(info) {
 
 
     firebase_conn.auth.createUserWithEmailAndPassword(userProfile['email'],userProfile['password']);
+}
+
+async function update_payables_and_recievables(userID){
+    let snapshot = await firebase_conn.db.ref('users/'+userID+'/transaction_history').once('value');
+    if(snapshot.val() === null){
+        console.log('no transactions for users');
+        return;
+    }
+
+    let transactionIDs = snapshot.val();
+
+    payables_list = [];
+    recievables_list = [];
+
+
+
+    for(let i = 0; i < transactionIDs.length; i++){
+        let trans = await transactions.fetch_transaction(transactionIDs[i]);
+
+        if(trans != null){
+            if(trans['to'] == userID){
+                recievables_list.push(trans);
+            } else {
+                payables_list.push(trans);
+            }
+        }
+    }
+
+    firebase_conn.db.ref('users/'+userID+'/payables/').set(payables_list);
+    firebase_conn.db.ref('users/'+userID+ '/recievables/').set(recievables_list);
+}
+
+async function get_payables(userID){
+    let snapshot = await firebase_conn.db.ref('users/'+userID+'/payables/').once('value');
+    if(snapshot.val() != null)
+        console.log(snapshot.val());
+    return snapshot.val();
+}
+
+async function get_recievables(userID){
+    let snapshot = await firebase_conn.db.ref('users/'+userID+'/recievables/').once('value');
+    if(snapshot.val() != null)
+        console.log(snapshot.val());
+    return snapshot.val();
 }
 
 
@@ -218,5 +264,8 @@ module.exports = {
     add_user_to_group: add_user_to_group,
     remove_group: remove_group,
     replyNotification: replyNotification,
+    update_payables_and_recievables, update_payables_and_recievables,
+    get_recievables: get_recievables,
+    get_payables: get_payables,
 };
 
