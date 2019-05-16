@@ -1,8 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Avatar, Card, Paragraph, Title} from 'react-native-paper';
-import {groupToShow} from "./groupscreensflow";
-import {get_group, get_group_transactions, get_transaction} from "./data";
 import AppBar from "./AppBar";
 
 export default class oldTransactionsScreen extends React.Component {

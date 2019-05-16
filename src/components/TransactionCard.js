@@ -3,7 +3,6 @@ import {StyleSheet, View} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper'
 import {Dropdown} from "react-native-material-dropdown";
 import {currentGroupMembers} from "./groupscreensflow";
-import {get_user} from "./data";
 import {updateData} from "./transactionscreenflow";
 
 export default class TransactionCard extends React.Component {

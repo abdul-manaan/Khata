@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {signin} from './data';
 import {Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
 import {Icon} from 'react-native-elements'
-import {Entypo} from 'react-native-vector-icons/Entypo';
 
 export default class SignInScreen extends Component {
 

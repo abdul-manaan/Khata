@@ -2,12 +2,10 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {StyleSheet, TouchableOpacity, View,Text,ActivityIndicator} from 'react-native';
 import {Card, TextInput, Title} from 'react-native-paper';
-import {updateGist} from "./transactionscreenflow";
 import {Icon,ListItem} from "react-native-elements";
 import {auth, db} from '../config';
 import {CurrentUser, add_group_transactions} from "./data";
 import {gist,data, CurrentTransaction} from "./transactionscreenflow";
-import {setState} from "theme-provider";
 
 export default class transactionStatus extends React.Component {
 

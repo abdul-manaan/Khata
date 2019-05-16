@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import QRCode from 'react-native-qrcode';
 import AppBar from "./AppBar";
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
+import { View,} from 'react-native';
 
 export default class QR_Code extends Component {
     constructor(props) {
