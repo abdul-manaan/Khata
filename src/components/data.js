@@ -238,9 +238,13 @@ function add_group_transactions(groupID,info){
     let tidList = [];
     let IT = info['transaction'];
 
+    let memberIDs = [];
+
     Object.keys(info['transaction']).forEach(key => {
         let tid = create_transaction({"to":IT[key]['toEm'].hashCode(),"from":IT[key]['fromEm'].hashCode(),'status':true,'amount':IT[key]['amount']});
         tidList.push(tid);
+        memberIDs.push(IT[key]['toEm'].hashCode());
+        memberIDs.push(IT[key]['fromEm'].hashCode());
     });
 
     let groupTransactionData = {
@@ -249,6 +253,15 @@ function add_group_transactions(groupID,info){
         "title":info['title'],
         "transactions":tidList,
     };
+
+    setTimeout(() => {
+        memberIDs.forEach(k => {
+            update_payables_and_recievables(k);
+        });
+    },2000);
+
+
+
 
     return db.ref(`groups/${groupID}/transactions/${unique_id}`).set(groupTransactionData);
 }
@@ -454,7 +467,7 @@ function add_friend(userID, friendID) {
 
             let friendsList = snapshot.val();
             if (friendsList.includes(friendID)) {
-                console.log(`${userID} is already friends with ${friendID}`);
+                // console.log(`${userID} is already friends with ${friendID}`);
                 return;
             }
             friendsList.push(friendID);
@@ -464,6 +477,111 @@ function add_friend(userID, friendID) {
     })
 
 }
+
+
+
+
+async function update_payables_and_recievables(userID){
+    let snapshot = await db.ref('users/'+userID+'/transaction_history').once('value');
+    if(snapshot.val() === null){
+        // console.log('no transactions for users');
+        return;
+    }
+
+    let transactionIDs = snapshot.val();
+
+    let payables_list = [];
+    let recievables_list = [];
+
+
+
+    for(let i = 0; i < transactionIDs.length; i++){
+        let trans = await fetch_transaction(transactionIDs[i]);
+        trans['transaction_id'] = transactionIDs[i];
+        if(trans != null){
+            if(trans['to'] === userID){
+                payables_list.push(trans);
+            } else {
+                recievables_list.push(trans);
+            }
+        }
+    }
+
+    db.ref('users/'+userID+'/payables/').set(payables_list);
+    db.ref('users/'+userID+ '/recievables/').set(recievables_list);
+
+    setTimeout( async ()=> {
+        CurrentUser=await get_user(userID);
+    }, 1000)
+}
+
+
+async function get_payables(){
+    let userID = CurrentUser['profile']['email'].hashCode();
+    let snapshot = await db.ref('users/'+userID+'/payables/').once('value');
+    if(snapshot.val() != null)
+        // console.log(snapshot.val());
+    return snapshot.val();
+}
+
+async function get_recievables(){
+    let userID = CurrentUser['profile']['email'].hashCode();
+    let snapshot = await db.ref('users/'+userID+'/recievables/').once('value');
+    if(snapshot.val() != null)
+        // console.log(snapshot.val());
+    return snapshot.val();
+}
+
+async function fetch_transaction(tID){
+    let snapshot = await db.ref('transactions/'+tID).once('value');
+
+    if(snapshot.val() === null) {
+        // console.log(`No transaction with tiD: ${tID}`);
+        return null;
+    }
+
+    let transaction_object = snapshot.val();
+
+    let from_snapshot = await db.ref('users/'+transaction_object['from']).once('value');
+    let to_snapshot = await db.ref('users/'+transaction_object['to']).once('value');
+
+    if(from_snapshot.val() === null || to_snapshot.val() === null){
+        // console.log('one of the users doesnt exist...');
+        return null;
+    }
+
+    transaction_object['from_name'] = from_snapshot.val()['profile']['name'];
+    transaction_object['to_name'] = to_snapshot.val()['profile']['name'];
+
+    // console.log(transaction_object);
+
+    return transaction_object;
+
+}
+
+async function update_transaction_amount(tID, delta){
+    let snapshot = await db.ref('transactions/'+tID).once('value');
+    if(snapshot.val() === null) {
+        // console.log('transaction id doesnt exist');
+        return;
+    }
+
+    let trans = snapshot.val();
+    let origAmount = Number(trans['amount']);
+    trans['amount'] = origAmount - Number(delta);
+
+    if(trans['amount'] < 0){
+        alert('No one pays more than they owe!');
+        return;
+    }
+
+    await db.ref('transactions/'+tID).set(trans);
+
+    update_payables_and_recievables(trans['from']);
+    update_payables_and_recievables(trans['to']);
+
+}
+
 export {
     recent_group_name,
     update_rgn,
@@ -491,4 +609,7 @@ export {
     hashify,
     add_friend,
     get_transaction,
+    get_recievables,
+    get_payables,
+    update_transaction_amount,
 };

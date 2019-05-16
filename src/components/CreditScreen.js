@@ -5,15 +5,40 @@ import {Card, Button} from 'react-native-paper';
 
 import {ListItem} from "react-native-elements";
 import {Dropdown} from "react-native-material-dropdown";
+import {CurrentUser} from "./data";
 
 export default class CreditScreen extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {data:[], friend:'', amount:{}, creditAmount: 0, };
-        this.state.data = [{value:'Ali'}, {value:'Ahmed'}];
-        this.state.amount = {'Ali':10, 'Ahmed':20};
+        this.state = {data:[], friend:'', amount:{}, debitAmount: 0, amountToDebit:0};
+        this.state.data = [{value:'Fetching...'}];
+        this.state.amount = {'Fetching...':0,};
+
+        setTimeout(() => this.fetchDebits(),500);
     }
+
+    fetchDebits = () =>{
+        // console.log(CurrentUser, "fddfdsds")
+        if('payables' in CurrentUser){
+            let debit = CurrentUser['payables'];
+
+            //debit is list of objects
+
+            let tempData = [];
+            let tempAmount = {};
+
+            debit.forEach(k => {
+                tempData.push({value: k['from_name']});
+                tempAmount[k['from_name']] = k['amount'];
+            });
+
+            this.setState({data: tempData, amount: tempAmount});
+        }
+        else{
+            // console.log('F***', CurrentUser)
+        }
+    };
 
     render() {
         return (
@@ -44,7 +69,7 @@ export default class CreditScreen extends React.Component {
 
 
                 {!this.state.friend || <Card style={styles.cardStyle}>
-                    <Button style={styles.buttonStyle} onPress={() => console.log('Pressed')}>
+                    <Button style={styles.buttonStyle} onPress={() => alert('Pinging Server Not Ready')}>
                         {<Text style={styles.buttonText}>Ping {this.state.friend}</Text>}
                     </Button>
                 </Card>}

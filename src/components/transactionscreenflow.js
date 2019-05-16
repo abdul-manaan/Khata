@@ -5,10 +5,10 @@ let updateData = (part) => {
     *   1: {to: '', from: '', amount: '', toEm: '', fromEm: ''}
     * }
     * */
-    console.log(part, ' its part');
+    // console.log(part, ' its part');
 
     data[Object.keys(part)[0]] = part[Object.keys(part)[0]];
-    console.log(data, ' its data')
+    //console.log(data, ' its data')
 };
 
 let gist = '';

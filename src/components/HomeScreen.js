@@ -3,9 +3,23 @@ import AppBar from "./AppBar";
 import GroupCard from "./GroupCard";
 
 import {ScrollView, StyleSheet, View,} from 'react-native';
+import {CurrentUser} from "./data";
+import {db} from "../config";
 
 export default class HomeScreen extends React.Component {
-    state = {};
+
+
+
+    constructor(props){
+        super(props);
+        this.state = {
+        };
+
+        let id = CurrentUser['profile']['email'].hashCode();
+        db.ref('users/'+id+'/groups/').on('value', snapshot => {
+            this.forceUpdate();
+        })
+    }
 
     componentDidMount() {
         this.props.navigation.addListener(

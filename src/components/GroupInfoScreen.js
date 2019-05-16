@@ -43,15 +43,15 @@ export default class GroupCard extends React.Component {
                     </Card.Content>
                 </Card>
 
-                <Card onPress={() => this.props.navigation.navigate('oldTransactions')} style={[styles.cardStyle, styles.newCard]} >
-                    <Card.Content>
-                        <View style = {{flexDirection: 'row'}}>
-                            <Title> Old Transactions</Title>
-                            <Text style={{color: 'white'}}>Hell Hell Hell</Text>
-                            <Icon size={40} name="trending-flat" color='#aa2200' style={{position:'absolute', right:0}}/>
-                        </View>
-                    </Card.Content>
-                </Card>
+                {/*<Card onPress={() => this.props.navigation.navigate('oldTransactions')} style={[styles.cardStyle, styles.newCard]} >*/}
+                {/*    <Card.Content>*/}
+                {/*        <View style = {{flexDirection: 'row'}}>*/}
+                {/*            <Title> Old Transactions</Title>*/}
+                {/*            <Text style={{color: 'white'}}>Hell Hell Hell</Text>*/}
+                {/*            <Icon size={40} name="trending-flat" color='#aa2200' style={{position:'absolute', right:0}}/>*/}
+                {/*        </View>*/}
+                {/*    </Card.Content>*/}
+                {/*</Card>*/}
 
                 <FAB
                     style={styles.fab}

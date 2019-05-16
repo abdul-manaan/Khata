@@ -30,16 +30,16 @@ export default class transactionStatus extends React.Component {
 
         this.state = {'listA': listB};
         //this.setState({"listA":listB});
-        console.log('Flag 1', CurrentUser);
+        // console.log('Flag 1', CurrentUser);
 
         let temp = 'users/'+CurrentUser['profile']['email'].hashCode()+'/responseList/'+gist.hashCode();
-        console.log(temp);
+        // console.log(temp);
         db.ref('users/'+CurrentUser['profile']['email'].hashCode()+'/responseList/'+gist.hashCode()).on('value',snapshot => {
-            console.log('Hello');
+            // console.log('Hello');
             let responseList = snapshot.val();
             if(responseList === null)
                 return;
-            console.log(responseList);
+            // console.log(responseList);
             responseList.forEach(a => {
                 for (let i=0; i< listB.length; i++){
                     if(listB[i].title === a.name){
@@ -80,7 +80,7 @@ export default class transactionStatus extends React.Component {
                 2:{name:'close', color:'red'},
             };
     render() {
-        console.log(this.state.listA);
+        // console.log(this.state.listA);
         return (
         <View style={styles.main}>
             <AppBar

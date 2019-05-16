@@ -67,7 +67,8 @@ export default class SignUpScreen extends Component {
                                             alert('Enter password with more than 6 characters');
                                         } else {
                                             create_user(this.state);
-                                            this.props.navigation.navigate('EmailConfirmationScreen')
+                                            alert('Congrats on being member of Khata community!');
+                                            this.props.navigation.navigate('SignIn')
                                         }
                                     }}>
                     <Text style={styles.loginText}>Enter</Text>

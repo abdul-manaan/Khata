@@ -5,16 +5,52 @@ import {Card, TextInput,Button} from 'react-native-paper';
 
 import {ListItem} from "react-native-elements";
 import {Dropdown} from "react-native-material-dropdown";
+import {CurrentUser, update_transaction_amount} from "./data";
 
 export default class DebitScreen extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {data:[], friend:'', amount:{}, debitAmount: 0, amountToDebit:0};
-        this.state.data = [{value:'Ali'}, {value:'Ahmed'}];
-        this.state.amount = {'Ali':10, 'Ahmed':20};
+        this.state.data = [{value:'Fetching...'}];
+        this.state.amount = {'Fetching...':0,};
+        this.state.currTID = 0;
+
+        setTimeout(() => this.fetchDebits(),500);
     }
 
+    dic = {};
+    TMAP = {};
+    fetchDebits = () =>{
+        // console.log(CurrentUser, "fddfdsds");
+        if('recievables' in CurrentUser){
+            let debit = CurrentUser['recievables'];
+
+            //debit is list of objects
+
+            let tempData = [];
+            let tempAmount = {};
+
+            debit.forEach(k => {
+                tempData.push({value: k['to_name']});
+                tempAmount[k['to_name']] = k['amount'];
+                this.TMAP[k['to_name']] = k['transaction_id'];
+            });
+
+            this.setState({data: tempData, amount: tempAmount});
+        }
+        else{
+            // console.log('F***', CurrentUser)
+        }
+    };
+
+    updateDebit = () => {
+        let temp = {id: this.TMAP[this.dic['name']], debit: this.dic['amountToDebit']};
+        // console.log(temp);
+        update_transaction_amount(temp['id'], temp['debit']);
+        alert(`${temp['debit']} received!`)
+        this.props.navigation.navigate('DebitCreditScreen')
+    };
     render() {
         return (
             <View style={styles.main}>
@@ -31,6 +67,7 @@ export default class DebitScreen extends React.Component {
                         onChangeText={(text) =>
                         {
                             this.state.friend = text;
+                            this.dic['name'] = text;
                             this.setState({debitAmount: this.state.amount[text]});
                         }}
                         value={this.state.friend}
@@ -45,15 +82,17 @@ export default class DebitScreen extends React.Component {
                     label={'Enter the amount you want to debit'}
                     maxLength={10}
                     keyboardType={'numeric'}
-                    onChangeText={(text)=> this.state.amountToDebit = text}
+                    onChangeText={(text)=> {
+                        this.state.amountToDebit = text;
+                        this.dic['amountToDebit'] = text;
+                        this.setState({amountToDebit: text})
+                    }}
                     style={styles.textBoxStyle}
+                    value={this.state.amountToDebit}
                 />}
-
-                {!this.state.friend || <Card style={styles.cardStyle}>
-                    <Button style={styles.buttonStyle} onPress={() => console.log('Pressed')}>
-                        {<Text style={styles.buttonText}>Confirm Debit</Text>}
-                    </Button>
-                </Card>}
+                {!this.state.friend || <Button style={styles.buttonStyle} onPress={() => this.updateDebit()}>
+                    {<Text style={styles.buttonText}>Confirm Debit</Text>}
+                </Button>}
 
             </View>
         );
@@ -99,7 +138,16 @@ const styles = StyleSheet.create({
         marginLeft:10,
     },
     buttonStyle:{
-        backgroundColor:'#aa2200',
+        bottom: 0,
+        backgroundColor: '#aa2200',
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 10,
+        marginBottom: 20,
+        height: 45,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     buttonText:{

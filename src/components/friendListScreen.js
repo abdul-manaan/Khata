@@ -2,20 +2,30 @@ import React from 'react';
 import AppBar from "./AppBar";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Card, Checkbox, Title} from 'react-native-paper';
-import {addGroup, create_group, encryptEmail, get_friends, get_Current_user, recent_group_name, updateQR} from './data'
+import {addGroup, create_group, encryptEmail, get_friends, CurrentUser, recent_group_name, updateQR} from './data'
 import {Icon} from "react-native-elements";
-
+import {auth, db} from '../config';
 
 export default class friendListScreen extends React.Component {
 
-    state = {
-        friends : {},
-    };
 
+
+    constructor(props){
+        super(props);
+        this.state = {
+            friends : {},
+        };
+        let id = CurrentUser['profile']['email'].hashCode();
+        db.ref('users/'+id+'/friends_list/').on('value', snapshot => {
+            this.fetch_friends();
+        })
+    }
 
     fetch_friends = async () => {
         let fr = await get_friends();
-        this.setState({friends: fr});
+        if(fr){
+            this.setState({friends: fr});
+        }
     };
 
     render() {
