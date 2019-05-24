@@ -1,5 +1,4 @@
 const firebase = require('firebase');
-const fb_store =  require('firebase/storage');
 //const
 
 var config = {
