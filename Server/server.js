@@ -1,5 +1,4 @@
 const users = require('./components/users');
-const groups = require('./components/groups');
 const transactions = require('./components/transactions');
 
 
