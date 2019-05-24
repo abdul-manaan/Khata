@@ -1,5 +1,4 @@
 const users = require('./components/users');
-const transactions = require('./components/transactions');
 
 
 console.log('Connection Started!');
